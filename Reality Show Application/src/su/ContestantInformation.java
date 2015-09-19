@@ -6,7 +6,7 @@ package su;
 
 public class ContestantInformation {
 
-	//first name, last name, street address (street number and street name), city, province, postal code, phone number and birth date
+	//initializations for first name, last name, street address (street number and street name), city, province, postal code, phone number and birth date
 	private String firstName;
 	private String lastName;
 	private String addressNumber;
@@ -150,6 +150,6 @@ public class ContestantInformation {
 	
 	public String toString(){
 		
-		return firstName + "" + lastName + "" + addressNumber + "" + addressName + "" + city + "" + province + "" + postalCode + "" + phoneNumber + "" + birthDate;
+		return firstName + " " + lastName + " " + addressNumber + " " + addressName + " " + city + " " + province + " " + postalCode + " " + phoneNumber + " " + birthDate;
 	}
 }
