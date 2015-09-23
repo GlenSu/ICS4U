@@ -25,7 +25,7 @@ public class ContestantInformation {
 	private String birthDate;
 	private Calendar calender = new GregorianCalendar();
 
-	public ContestantInformation (String firstName,String lastName,String addressNumber, String addressName, String city, String province, String postalCode, String phoneNumber,String birthDate) throws InvalidInputException{
+	public ContestantInformation (String firstName,String lastName,String addressNumber, String addressName, String city, String province, String postalCode, String phoneNumber,int yyyy, int mm, int dd) throws InvalidInputException{
 
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
@@ -35,7 +35,7 @@ public class ContestantInformation {
 		this.setProvince(province);
 		this.setPostalCode(postalCode);
 		this.setPhoneNumber(phoneNumber);
-		this.setBirthDate(birthDate);
+		this.setBirthDate(yyyy, mm, dd);
 
 	}
 
@@ -51,9 +51,16 @@ public class ContestantInformation {
 	}
 	
 	/**
+	 * This method is used to send the first name of the contestant.
 	 * @param firstName the firstName to set
+	 * @throws InvalidInputException 
 	 */
-	public void setFirstName(String firstName) {
+	public void setFirstName(String firstName) throws InvalidInputException {
+		for(int i = 0; i < firstName.length(); i++){
+			if(Character.isDigit(firstName.charAt(i))){
+				throw new InvalidInputException("Please do not enter digits in your name.");
+			}
+		}
 		firstName.toUpperCase().charAt(0);
 		firstName.toLowerCase().substring(1);
 		this.firstName = firstName;
@@ -67,9 +74,16 @@ public class ContestantInformation {
 	}
 	
 	/**
+	 * This method is used to send the last name of the contestant.
 	 * @param lastName the lastName to set
+	 * @throws InvalidInputException 
 	 */
-	public void setLastName(String lastName) {
+	public void setLastName(String lastName) throws InvalidInputException {
+		for(int i = 0; i < lastName.length(); i++){
+			if(Character.isDigit(lastName.charAt(i))){
+				throw new InvalidInputException("Please do not enter digits in your name.");
+			}
+		}
 		lastName.toUpperCase().charAt(0);
 		lastName.toLowerCase().substring(1);
 		this.lastName = lastName;
@@ -83,9 +97,23 @@ public class ContestantInformation {
 	}
 
 	/**
+	 * This is used to send the street number of the contestant.
 	 * @param addressNumber the addressNumber to set
+	 * @throws InvalidInputException 
 	 */
-	public void setAddressNumber(String addressNumber) {
+	public void setAddressNumber(String addressNumber) throws InvalidInputException {
+		if(addressNumber.length() > 2){
+			if(Character.isLetter(addressNumber.charAt(addressNumber.length() - 2))){
+				throw new InvalidInputException("This address does not exist in Canada.");
+			}
+		}
+		else if(addressNumber.length() < 1){
+			for(int i = 0; i< addressNumber.length(); i++){
+				if(!Character.isLetter(addressNumber.charAt(i))){
+					throw new InvalidInputException("This address does not exist in Canada.");
+				}
+			}
+		}
 		addressNumber.toUpperCase().charAt(0);
 		this.addressNumber = addressNumber;
 	}
@@ -98,9 +126,13 @@ public class ContestantInformation {
 	}
 
 	/**
+	 * This method is used to send the street name of the contestant. 
+	 * The user inputs their street name but has to choose the suffix from a selection box. 
 	 * @param addressName the addressName to set
 	 */
 	public void setAddressName(String addressName) {
+		
+		
 		addressName.toUpperCase().charAt(0);
 		addressName.toLowerCase().substring(1);
 		this.addressName = addressName;
@@ -113,16 +145,23 @@ public class ContestantInformation {
 		return city;
 	}
 
-	/**
+	/**	
+	 * This method is used to send the city name of the contestant.
 	 * @param city the city to set
+	 * @throws InvalidInputException 
 	 */
-	public void setCity(String city) {
+	public void setCity(String city) throws InvalidInputException {
+		for(int i = 0; i< city.length(); i++){
+			if(!Character.isLetter(city.charAt(i))){
+				throw new InvalidInputException("This is not a city name. Please only enter letters.");
+			}
+		}
 		city.toUpperCase().charAt(0);
 		city.toLowerCase().substring(1);
 		this.city = city;
 	}
 
-	/**
+	/**	 
 	 * @return the province
 	 */
 	public String getProvince() {
@@ -130,9 +169,16 @@ public class ContestantInformation {
 	}
 
 	/**
+	 * This method is used to send the province name of the contestant. 
 	 * @param province the province to set
+	 * @throws InvalidInputException 
 	 */
-	public void setProvince(String province) {
+	public void setProvince(String province) throws InvalidInputException {
+		for(int i = 0; i< province.length(); i++){
+			if(!Character.isLetter(province.charAt(i))){
+				throw new InvalidInputException("This is not a province name. Please only enter letters.");
+			}
+		}
 		province.toUpperCase().charAt(0);
 		province.toLowerCase().substring(1);
 		this.province = province;
@@ -146,14 +192,14 @@ public class ContestantInformation {
 	}
 
 	/**
+	 * This method is used to send the postal code of the contestant. 
+	 * Input must be in the format: X#X#X#.
 	 * @param postalCode the postalCode to set
 	 * @throws InvalidInputException 
 	 */
 	public void setPostalCode(String postalCode) throws InvalidInputException {
 		if(postalCode.length() >6 || postalCode.length()<6){
-
 			throw new InvalidInputException("The input is not the correct length, please input only 6 characters.");
-
 		}
 		else if (Character.isSpaceChar(postalCode.charAt(3))){
 			throw new InvalidInputException("Please remove the space inside the postal code and enter your input again.");
@@ -163,17 +209,17 @@ public class ContestantInformation {
 				
 				if(i == 0|| i ==2 || i == 4){
 					if(!Character.isLetter(postalCode.charAt(i))){
-						throw new InvalidInputException("The input does not have letters in the pattern such as: X#X #X# .");
+						throw new InvalidInputException("The input does not have letters in the pattern such as: X#X#X# .");
 					}
 				}
 				else if(i == 1|| i ==3 || i == 5){
 					if(!Character.isDigit(postalCode.charAt(i))){
-						throw new InvalidInputException("The input does not have letters in the pattern such as: X#X #X# .");
+						throw new InvalidInputException("The input does not have letters in the pattern such as: X#X#X# .");
 					}
 				}
 			}
+			postalCode.toUpperCase().charAt(0);
 		}
-		postalCode.toUpperCase().charAt(0);
 		this.postalCode = postalCode;
 	}
 
@@ -185,11 +231,24 @@ public class ContestantInformation {
 	}
 
 	/**
+	 * This method is used to send the phone number of the user.
+	 * Information must be in the format: ##########.
 	 * @param phoneNumber the phoneNumber to set
+	 * @throws InvalidInputException 
 	 */
-	public void setPhoneNumber(String phoneNumber) {
-		phoneNumber.toUpperCase().charAt(0);
-		phoneNumber.toLowerCase().substring(1);
+	public void setPhoneNumber(String phoneNumber) throws InvalidInputException {
+		if(phoneNumber.length() < 10){
+			throw new InvalidInputException("This phone number is too short. Please enter 10 digits only.");
+		}
+		else if(phoneNumber.length() > 10){
+			throw new InvalidInputException("This phone number is too long. Please enter 10 digits only.");
+		}
+		else{
+		for (int i = 0; i < phoneNumber.length(); i++)
+			if(!Character.isDigit(phoneNumber.charAt(i))){
+				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
+			}
+		}
 		this.phoneNumber = phoneNumber;
 	}
 
