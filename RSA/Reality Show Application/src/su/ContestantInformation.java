@@ -132,7 +132,6 @@ public class ContestantInformation {
 	 */
 	public void setAddressName(String addressName) {
 		
-		
 		addressName.toUpperCase().charAt(0);
 		addressName.toLowerCase().substring(1);
 		this.addressName = addressName;
@@ -181,7 +180,7 @@ public class ContestantInformation {
 		}
 		province.toUpperCase().charAt(0);
 		province.toLowerCase().substring(1);
-		this.province = province;
+		this.province = province.;
 	}
 
 	/**
