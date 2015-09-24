@@ -180,7 +180,7 @@ public class ContestantInformation {
 		}
 		province.toUpperCase().charAt(0);
 		province.toLowerCase().substring(1);
-		this.province = province.;
+		//this.province = province.;
 	}
 
 	/**
@@ -208,17 +208,18 @@ public class ContestantInformation {
 				
 				if(i == 0|| i ==2 || i == 4){
 					if(!Character.isLetter(postalCode.charAt(i))){
-						throw new InvalidInputException("The input does not have letters in the pattern such as: X#X#X# .");
+						throw new InvalidInputException("The input does not have letters in the pattern such as: X#X #X# .");
 					}
 				}
 				else if(i == 1|| i ==3 || i == 5){
 					if(!Character.isDigit(postalCode.charAt(i))){
-						throw new InvalidInputException("The input does not have letters in the pattern such as: X#X#X# .");
+						throw new InvalidInputException("The input does not have letters in the pattern such as: X#X #X# .");
 					}
 				}
 			}
-			postalCode.toUpperCase().charAt(0);
 		}
+		postalCode.toUpperCase().charAt(0);
+
 		this.postalCode = postalCode;
 	}
 
@@ -235,6 +236,7 @@ public class ContestantInformation {
 	 * @param phoneNumber the phoneNumber to set
 	 * @throws InvalidInputException 
 	 */
+
 	public void setPhoneNumber(String phoneNumber) throws InvalidInputException {
 		if(phoneNumber.length() < 10){
 			throw new InvalidInputException("This phone number is too short. Please enter 10 digits only.");
@@ -248,8 +250,8 @@ public class ContestantInformation {
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-		this.phoneNumber = phoneNumber;
 	}
+
 
 	/**
 	 * @return the birthDate
