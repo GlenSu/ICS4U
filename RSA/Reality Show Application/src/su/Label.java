@@ -36,25 +36,38 @@ public class Label {
 		
 	}
 	/**
-	 * 
+	 * This method is used to format the name of the contestant
 	 */
 	private void formatName() {
 		// TODO Auto-generated method stub
-		
+		firstName = ci.getFirstName();
 		lastName = ci.getLastName();
+		output = lastName + ", " + firstName + "/n";
 	}
 	/**
 	 * 
 	 */
 	private void formatAddress() {
 		// TODO Auto-generated method stub
+		addressNumber = ci.getAddressNumber();
+		addressName = ci.getAddressName();
+		city = ci.getCity();
+		province = ci.getProvince();
 		
+		output = output + addressNumber + " " + addressName + " " + "/n" + city + province + "/n";
 	}
 	/**
 	 * 
 	 */
 	private void formatNumber() {
 		// TODO Auto-generated method stub
+		phoneNumber = ci.getPhoneNumber();
+
+		
+	}
+	public String toString() {
+		
+		return output;
 		
 	}
 	

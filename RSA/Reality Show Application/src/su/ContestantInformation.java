@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 public class ContestantInformation {
 
 	//initializations for first name, last name, street address (street number and street name), city, province, postal code, phone number and birth date
+
 	private String firstName;
 	private String lastName;
 	private String addressNumber;
@@ -22,6 +23,7 @@ public class ContestantInformation {
 	private String province;
 	private String postalCode;
 	private String phoneNumber;
+		private String areaCode= "(";
 	private String birthDate;
 	private Calendar calender = new GregorianCalendar();
 
@@ -178,6 +180,45 @@ public class ContestantInformation {
 				throw new InvalidInputException("This is not a province name. Please only enter letters.");
 			}
 		}
+		if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
+			this.province = "ON";
+		}
+		if(province.equalsIgnoreCase("British Columbia")|| province.equalsIgnoreCase("B.C.") || province.equalsIgnoreCase("BC")){
+			this.province = "BC";
+		}
+		if(province.equalsIgnoreCase("Alberta")|| province.equalsIgnoreCase("Alta.") || province.equalsIgnoreCase("AB")){
+			this.province = "AB";
+		}
+		if(province.equalsIgnoreCase("Manitoba")|| province.equalsIgnoreCase("Man.") || province.equalsIgnoreCase("MB")){
+			this.province = "MB";
+		}
+		if(province.equalsIgnoreCase("New Brunswick")|| province.equalsIgnoreCase("N.B.") || province.equalsIgnoreCase("NB")){
+			this.province = "NB";
+		}
+		if(province.equalsIgnoreCase("Newfoundland and Labrador")|| province.equalsIgnoreCase("Newfoundland") || province.equalsIgnoreCase("Labrador") ||  province.equalsIgnoreCase("LB") || province.equalsIgnoreCase("NL") || province.equalsIgnoreCase("NF") ||  province.equalsIgnoreCase("Nfld.")){
+			this.province = "NL";
+		}
+		if(province.equalsIgnoreCase("Nova Scotia")|| province.equalsIgnoreCase("N.S.") || province.equalsIgnoreCase("NS")){
+			this.province = "NS";
+		}
+		if(province.equalsIgnoreCase("Northwest Territories")|| province.equalsIgnoreCase("N.W.T.") || province.equalsIgnoreCase("NT") || province.equalsIgnoreCase("NWT")){
+			this.province = "NT";
+		}
+		if(province.equalsIgnoreCase("Nunavut")|| province.equalsIgnoreCase("Nun.") || province.equalsIgnoreCase("Nvt.") || province.equalsIgnoreCase("NU")){
+			this.province = "NU";
+		}
+		if(province.equalsIgnoreCase("Quebec")|| province.equalsIgnoreCase("Que.") || province.equalsIgnoreCase("QC")){
+			this.province = "QC";
+		}
+		if(province.equalsIgnoreCase("Prince Edward Island")|| province.equalsIgnoreCase("P.E.I.") || province.equalsIgnoreCase("PEI") || province.equalsIgnoreCase("PE")){
+			this.province = "PE";
+		}
+		if(province.equalsIgnoreCase("Saskatchewan")|| province.equalsIgnoreCase("Que.") || province.equalsIgnoreCase("QC")){
+			this.province = "SK";
+		}//
+		if(province.equalsIgnoreCase("Yukon Territories")|| province.equalsIgnoreCase("Yukon") || province.equalsIgnoreCase("QC")){
+			this.province = "YT";
+		}//
 		province.toUpperCase().charAt(0);
 		province.toLowerCase().substring(1);
 		//this.province = province.;
@@ -248,6 +289,25 @@ public class ContestantInformation {
 		for (int i = 0; i < phoneNumber.length(); i++)
 			if(!Character.isDigit(phoneNumber.charAt(i))){
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
+			}
+		}
+
+		for (int i = 0; i< phoneNumber.length(); i++){
+			if(i < 4){
+				
+				areaCode = areaCode + phoneNumber.charAt(i);
+			}
+			else if(i==4){
+				areaCode = areaCode + ") " + phoneNumber.charAt(i);
+			}
+			else if(i == 5 || i== 6){
+				areaCode = areaCode + phoneNumber.charAt(i);
+			}
+			else if(i == 7){
+				areaCode = areaCode + " - " + phoneNumber.charAt(i);
+			}
+			else if(i>7){
+				areaCode = areaCode + phoneNumber.charAt(i);
 			}
 		}
 	}
