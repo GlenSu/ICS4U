@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
  * city, province, postal code, phone number and birth date.
  * 
  * @author Glen Su
- *	Sept 22 2015
+ *	Sept 28 2015
  */
 public class ContestantInformation {
 
@@ -23,7 +23,9 @@ public class ContestantInformation {
 	private String province;
 	private String postalCode;
 	private String phoneNumber;
-		private String areaCode= "(";
+	private int yyyy;
+	private int mm;
+	private int dd;
 	private String birthDate;
 	private Calendar calender = new GregorianCalendar();
 
@@ -60,7 +62,7 @@ public class ContestantInformation {
 	public void setFirstName(String firstName) throws InvalidInputException {
 		for(int i = 0; i < firstName.length(); i++){
 			if(Character.isDigit(firstName.charAt(i))){
-				throw new InvalidInputException("Please do not enter digits in your name.");
+				throw new InvalidInputException("Please do not enter digits in your name. Enter a proper name.");
 			}
 		}
 		firstName.toUpperCase().charAt(0);
@@ -106,13 +108,13 @@ public class ContestantInformation {
 	public void setAddressNumber(String addressNumber) throws InvalidInputException {
 		if(addressNumber.length() > 2){
 			if(Character.isLetter(addressNumber.charAt(addressNumber.length() - 2))){
-				throw new InvalidInputException("This address does not exist in Canada.");
+				throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
 			}
 		}
 		else if(addressNumber.length() < 1){
 			for(int i = 0; i< addressNumber.length(); i++){
 				if(!Character.isLetter(addressNumber.charAt(i))){
-					throw new InvalidInputException("This address does not exist in Canada.");
+					throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
 				}
 			}
 		}
@@ -176,51 +178,57 @@ public class ContestantInformation {
 	 */
 	public void setProvince(String province) throws InvalidInputException {
 		for(int i = 0; i< province.length(); i++){
-			if(!Character.isLetter(province.charAt(i))){
+			if(Character.isDigit(province.charAt(i))){
 				throw new InvalidInputException("This is not a province name. Please only enter letters.");
 			}
 		}
+		province.toUpperCase().charAt(0);
+		province.toLowerCase().substring(1);
+		
 		if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
 			this.province = "ON";
 		}
-		if(province.equalsIgnoreCase("British Columbia")|| province.equalsIgnoreCase("B.C.") || province.equalsIgnoreCase("BC")){
+		else if(province.equalsIgnoreCase("British Columbia")|| province.equalsIgnoreCase("B.C.") || province.equalsIgnoreCase("BC")){
 			this.province = "BC";
 		}
-		if(province.equalsIgnoreCase("Alberta")|| province.equalsIgnoreCase("Alta.") || province.equalsIgnoreCase("AB")){
+		else if(province.equalsIgnoreCase("Alberta")|| province.equalsIgnoreCase("Alta.") || province.equalsIgnoreCase("AB")){
 			this.province = "AB";
 		}
-		if(province.equalsIgnoreCase("Manitoba")|| province.equalsIgnoreCase("Man.") || province.equalsIgnoreCase("MB")){
+		else if(province.equalsIgnoreCase("Manitoba")|| province.equalsIgnoreCase("Man.") || province.equalsIgnoreCase("MB")){
 			this.province = "MB";
 		}
-		if(province.equalsIgnoreCase("New Brunswick")|| province.equalsIgnoreCase("N.B.") || province.equalsIgnoreCase("NB")){
+		else if(province.equalsIgnoreCase("New Brunswick")|| province.equalsIgnoreCase("N.B.") || province.equalsIgnoreCase("NB")){
 			this.province = "NB";
 		}
-		if(province.equalsIgnoreCase("Newfoundland and Labrador")|| province.equalsIgnoreCase("Newfoundland") || province.equalsIgnoreCase("Labrador") ||  province.equalsIgnoreCase("LB") || province.equalsIgnoreCase("NL") || province.equalsIgnoreCase("NF") ||  province.equalsIgnoreCase("Nfld.")){
+		else if(province.equalsIgnoreCase("Newfoundland and Labrador")|| province.equalsIgnoreCase("Newfoundland") || province.equalsIgnoreCase("Labrador") ||  province.equalsIgnoreCase("LB") || province.equalsIgnoreCase("NL") || province.equalsIgnoreCase("NF") ||  province.equalsIgnoreCase("Nfld.")){
 			this.province = "NL";
 		}
-		if(province.equalsIgnoreCase("Nova Scotia")|| province.equalsIgnoreCase("N.S.") || province.equalsIgnoreCase("NS")){
+		else if(province.equalsIgnoreCase("Nova Scotia")|| province.equalsIgnoreCase("N.S.") || province.equalsIgnoreCase("NS")){
 			this.province = "NS";
 		}
-		if(province.equalsIgnoreCase("Northwest Territories")|| province.equalsIgnoreCase("N.W.T.") || province.equalsIgnoreCase("NT") || province.equalsIgnoreCase("NWT")){
+		else if(province.equalsIgnoreCase("Northwest Territories")|| province.equalsIgnoreCase("N.W.T.") || province.equalsIgnoreCase("NT") || province.equalsIgnoreCase("NWT")){
 			this.province = "NT";
 		}
-		if(province.equalsIgnoreCase("Nunavut")|| province.equalsIgnoreCase("Nun.") || province.equalsIgnoreCase("Nvt.") || province.equalsIgnoreCase("NU")){
+		else if(province.equalsIgnoreCase("Nunavut")|| province.equalsIgnoreCase("Nun.") || province.equalsIgnoreCase("Nvt.") || province.equalsIgnoreCase("NU")){
 			this.province = "NU";
 		}
-		if(province.equalsIgnoreCase("Quebec")|| province.equalsIgnoreCase("Que.") || province.equalsIgnoreCase("QC")){
+		else if(province.equalsIgnoreCase("Quebec")|| province.equalsIgnoreCase("Que.") || province.equalsIgnoreCase("QC")){
 			this.province = "QC";
 		}
-		if(province.equalsIgnoreCase("Prince Edward Island")|| province.equalsIgnoreCase("P.E.I.") || province.equalsIgnoreCase("PEI") || province.equalsIgnoreCase("PE")){
+		else if(province.equalsIgnoreCase("Prince Edward Island")|| province.equalsIgnoreCase("P.E.I.") || province.equalsIgnoreCase("PEI") || province.equalsIgnoreCase("PE")){
 			this.province = "PE";
 		}
-		if(province.equalsIgnoreCase("Saskatchewan")|| province.equalsIgnoreCase("Que.") || province.equalsIgnoreCase("QC")){
+		else if(province.equalsIgnoreCase("Saskatchewan")|| province.equalsIgnoreCase("Sask.") || province.equalsIgnoreCase("SK")){
 			this.province = "SK";
-		}//
-		if(province.equalsIgnoreCase("Yukon Territories")|| province.equalsIgnoreCase("Yukon") || province.equalsIgnoreCase("QC")){
+		}
+		else if(province.equalsIgnoreCase("Yukon Territories")|| province.equalsIgnoreCase("Yukon") || province.equalsIgnoreCase("YT")){
 			this.province = "YT";
-		}//
-		province.toUpperCase().charAt(0);
-		province.toLowerCase().substring(1);
+		}
+		else {
+			System.out.println("Your input was not in the database, please check your spelling and try again.");
+			this.province = "null";
+		}
+
 		//this.province = province.;
 	}
 
@@ -291,7 +299,7 @@ public class ContestantInformation {
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-
+		String areaCode = "(";
 		for (int i = 0; i< phoneNumber.length(); i++){
 			if(i < 4){
 				
@@ -312,6 +320,58 @@ public class ContestantInformation {
 		}
 	}
 
+
+	/**
+	 * @return the yyyy
+	 */
+	public int getyyyy() {
+		return yyyy;
+	}
+
+	/**
+	 * @param yyyy the yyyy to set
+	 * @throws InvalidInputException 
+	 */
+	public void setyyyy(int yyyy) throws InvalidInputException {
+		if (yyyy ){
+			
+		}
+		for (int i = 0; i < yyyy; i++){
+			if(!Character.isDigit(yyyy)){
+				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
+			}
+		}
+		
+		this.yyyy = yyyy;
+	}
+
+	/**
+	 * @return the mm
+	 */
+	public int getmm() {
+		return mm;
+	}
+
+	/**
+	 * @param mm the mm to set
+	 */
+	public void setmm(int mm) {
+		this.mm = mm;
+	}
+
+	/**
+	 * @return the dd
+	 */
+	public int getdd() {
+		return dd;
+	}
+
+	/**
+	 * @param dd the dd to set
+	 */
+	public void setdd(int dd) {
+		this.dd = dd;
+	}
 
 	/**
 	 * @return the birthDate

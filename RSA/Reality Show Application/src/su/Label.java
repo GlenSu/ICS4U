@@ -7,8 +7,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * @author 322124942
- *
+ * @author Glen Su
+ * Sept 28 2015
  */
 public class Label {
 
@@ -45,7 +45,7 @@ public class Label {
 		output = lastName + ", " + firstName + "/n";
 	}
 	/**
-	 * 
+	 * This method is used to format the address information of the contestant
 	 */
 	private void formatAddress() {
 		// TODO Auto-generated method stub
@@ -57,13 +57,12 @@ public class Label {
 		output = output + addressNumber + " " + addressName + " " + "/n" + city + province + "/n";
 	}
 	/**
-	 * 
+	 * This method is used to format the phone number of the contestant
 	 */
 	private void formatNumber() {
 		// TODO Auto-generated method stub
 		phoneNumber = ci.getPhoneNumber();
 
-		
 	}
 	public String toString() {
 		
