@@ -18,10 +18,15 @@ public class main {
 	private static String province;
 	private static String postalCode;
 	private static String phoneNumber;
+	private static String birthDate;
+	private static String moreContestants;
+	private static String output;
 	private static int yyyy;
 	private static int mm;
 	private static int dd;
 
+	
+	
 	/**
 	 * @param args
 	 */
@@ -29,14 +34,14 @@ public class main {
 		// TODO Auto-generated method stub
 		Scanner scan = new Scanner(System.in);
 		ArrayList<ContestantInformation> contestants = new ArrayList<ContestantInformation>();
-		ContestantInformation contestant1 = null;
+		ContestantInformation contestant1 = new ContestantInformation();
 		
 		int age = 0;
-		int counter = 0;
 		boolean flag1 = false;
 		boolean flag2 = false;
 		do{
 			flag2 = false;
+			
 			System.out.println("Please enter your first name.");
 			do{
 				try{
@@ -67,7 +72,7 @@ public class main {
 			do{
 				try{
 					addressNumber = scan.nextLine();
-					contestant1.setAddressName(addressNumber);
+					contestant1.setAddressNumber(addressNumber);
 					flag1 =false;
 				}catch(InvalidInputException e){
 					System.out.println(e.getMessage());
@@ -80,7 +85,7 @@ public class main {
 			do{
 				try{
 					addressName = scan.nextLine();
-					contestant1.setAddressNumber(addressName);
+					contestant1.setAddressName(addressName);
 					flag1 =false;
 				}catch(InvalidInputException e){
 					System.out.println(e.getMessage());
@@ -142,25 +147,73 @@ public class main {
 			}
 			while(flag1);
 		
-			System.out.println("Please enter the year you were born in.");
+			System.out.println("Please enter the year you were born in using 4 numeric values.");
+			
 			do{
 				try{
-					contestant1.setyyyy();
 					yyyy = Integer.parseInt(scan.nextLine());
+					contestant1.setyyyy(yyyy);
+					age = findAge();
 					flag1 =false;
-				}catch(InvalidInputException e){
+				} catch (InvalidInputException e) {
 					System.out.println(e.getMessage());
 					flag1 =true;
 				}
 			}
 			while(flag1);
 			
-		age = findAge();
+			System.out.println("Please enter the month you were born in using only 2 numeric values.");
+
+			do{
+				try{
+					mm = Integer.parseInt(scan.nextLine());
+					contestant1.setmm(mm);
+					flag1 =false;
+				} catch (InvalidInputException e){
+					System.out.println(e.getMessage());
+					flag1 =true;
+				}
+			}
+			while(flag1);
+
+			System.out.println("Please enter the day you were born in using only 2 numeric values.");
+
+			do{
+				try{
+					dd = Integer.parseInt(scan.nextLine());
+					contestant1.setdd(dd);
+					flag1 =false;
+				}catch(InvalidInputException e){
+					System.out.println(e.getMessage());
+					flag1 =true;
+				}
+			}
+			while(flag1);			
+			
+			contestant1.setBirthDate(yyyy, mm, dd);
+
+			do{
+			System.out.println("Is that all the contestants?");
+			System.out.println("Please enter [1] for yes or [2] for no.");
+			moreContestants = scan.nextLine();
+			
+				if (moreContestants == "1" || moreContestants == "[1]"){
+					flag1 = false;
+					flag2 = true;
+				}
+				else if (moreContestants == "2" || moreContestants == "[2]"){
+					flag1 = false;
+					flag2 = false;
+				}
+			}
+			while(flag1);	
 		contestants.add(contestant1);
 		}
 		while(flag2);
 		
+		Label output = new Label(contestant1);
 		
+		System.out.println(output.outputString());
 		}
 
 	public static int findAge() {

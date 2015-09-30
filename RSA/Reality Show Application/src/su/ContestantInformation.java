@@ -2,6 +2,7 @@ package su;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 /**
  * This class holds information for a contestant. It create fields for
@@ -15,6 +16,8 @@ public class ContestantInformation {
 
 	//initializations for first name, last name, street address (street number and street name), city, province, postal code, phone number and birth date
 
+	Scanner scan = new Scanner(System.in);
+	
 	private String firstName;
 	private String lastName;
 	private String addressNumber;
@@ -39,6 +42,9 @@ public class ContestantInformation {
 		this.setProvince(province);
 		this.setPostalCode(postalCode);
 		this.setPhoneNumber(phoneNumber);
+		this.setyyyy(yyyy);
+		this.setmm(mm);
+		this.setdd(dd);
 		this.setBirthDate(yyyy, mm, dd);
 
 	}
@@ -60,6 +66,9 @@ public class ContestantInformation {
 	 * @throws InvalidInputException 
 	 */
 	public void setFirstName(String firstName) throws InvalidInputException {
+		if(firstName.length() <= 0){
+			throw new InvalidInputException("Please enter your first name.");
+		}
 		for(int i = 0; i < firstName.length(); i++){
 			if(Character.isDigit(firstName.charAt(i))){
 				throw new InvalidInputException("Please do not enter digits in your name. Enter a proper name.");
@@ -83,6 +92,9 @@ public class ContestantInformation {
 	 * @throws InvalidInputException 
 	 */
 	public void setLastName(String lastName) throws InvalidInputException {
+		if(lastName.length() <= 0){
+			throw new InvalidInputException("Please enter your last name.");
+		}
 		for(int i = 0; i < lastName.length(); i++){
 			if(Character.isDigit(lastName.charAt(i))){
 				throw new InvalidInputException("Please do not enter digits in your name.");
@@ -106,7 +118,10 @@ public class ContestantInformation {
 	 * @throws InvalidInputException 
 	 */
 	public void setAddressNumber(String addressNumber) throws InvalidInputException {
-		if(addressNumber.length() > 2){
+		if(addressNumber.length() <= 0){
+			throw new InvalidInputException("Please enter your street number.");
+		}
+		else if(addressNumber.length() > 2){
 			if(Character.isLetter(addressNumber.charAt(addressNumber.length() - 2))){
 				throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
 			}
@@ -133,8 +148,17 @@ public class ContestantInformation {
 	 * This method is used to send the street name of the contestant. 
 	 * The user inputs their street name but has to choose the suffix from a selection box. 
 	 * @param addressName the addressName to set
+	 * @throws InvalidInputException 
 	 */
-	public void setAddressName(String addressName) {
+	public void setAddressName(String addressName) throws InvalidInputException {
+		if(addressName.length() <= 0){
+			throw new InvalidInputException("Please enter your street name.");
+		}
+		for(int i = 0; i< addressName.length(); i++){
+			if(!Character.isLetterOrDigit(addressName.charAt(i))){
+				throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
+			}
+		}
 		
 		addressName.toUpperCase().charAt(0);
 		addressName.toLowerCase().substring(1);
@@ -154,6 +178,9 @@ public class ContestantInformation {
 	 * @throws InvalidInputException 
 	 */
 	public void setCity(String city) throws InvalidInputException {
+		if(city.length() <= 0){
+			throw new InvalidInputException("Please enter your city name.");
+		}
 		for(int i = 0; i< city.length(); i++){
 			if(!Character.isLetter(city.charAt(i))){
 				throw new InvalidInputException("This is not a city name. Please only enter letters.");
@@ -177,6 +204,9 @@ public class ContestantInformation {
 	 * @throws InvalidInputException 
 	 */
 	public void setProvince(String province) throws InvalidInputException {
+		if(province.length() <= 0){
+			throw new InvalidInputException("Please enter the province or territory name you are from.");
+		}
 		for(int i = 0; i< province.length(); i++){
 			if(Character.isDigit(province.charAt(i))){
 				throw new InvalidInputException("This is not a province name. Please only enter letters.");
@@ -246,6 +276,9 @@ public class ContestantInformation {
 	 * @throws InvalidInputException 
 	 */
 	public void setPostalCode(String postalCode) throws InvalidInputException {
+		if(postalCode.length() <= 0){
+			throw new InvalidInputException("Please enter your postal code.");
+		}
 		if(postalCode.length() >6 || postalCode.length()<6){
 			throw new InvalidInputException("The input is not the correct length, please input only 6 characters.");
 		}
@@ -287,6 +320,9 @@ public class ContestantInformation {
 	 */
 
 	public void setPhoneNumber(String phoneNumber) throws InvalidInputException {
+		if(phoneNumber.length() <= 0){
+			throw new InvalidInputException("Please enter your phonenumber.");
+		}
 		if(phoneNumber.length() < 10){
 			throw new InvalidInputException("This phone number is too short. Please enter 10 digits only.");
 		}
@@ -333,15 +369,14 @@ public class ContestantInformation {
 	 * @throws InvalidInputException 
 	 */
 	public void setyyyy(int yyyy) throws InvalidInputException {
-		if (yyyy ){
-			
+		if(yyyy <= 0){
+			throw new InvalidInputException("Please enter your year of birth.");
 		}
 		for (int i = 0; i < yyyy; i++){
 			if(!Character.isDigit(yyyy)){
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-		
 		this.yyyy = yyyy;
 	}
 
@@ -354,8 +389,17 @@ public class ContestantInformation {
 
 	/**
 	 * @param mm the mm to set
+	 * @throws InvalidInputException 
 	 */
-	public void setmm(int mm) {
+	public void setmm(int mm) throws InvalidInputException {
+		if(mm <= 0){
+			throw new InvalidInputException("Please enter your month of birth.");
+		}
+		for (int i = 0; i < mm; i++){
+			if(!Character.isDigit(mm)){
+				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
+			}
+		}
 		this.mm = mm;
 	}
 
@@ -368,8 +412,17 @@ public class ContestantInformation {
 
 	/**
 	 * @param dd the dd to set
+	 * @throws InvalidInputException 
 	 */
-	public void setdd(int dd) {
+	public void setdd(int dd) throws InvalidInputException {
+		if(dd <= 0){
+			throw new InvalidInputException("Please enter your day of birth.");
+		}
+		for (int i = 0; i < dd; i++){
+			if(!Character.isDigit(dd)){
+				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
+			}
+		}
 		this.dd = dd;
 	}
 

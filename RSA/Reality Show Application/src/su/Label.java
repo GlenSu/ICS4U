@@ -54,7 +54,7 @@ public class Label {
 		city = ci.getCity();
 		province = ci.getProvince();
 		
-		output = output + addressNumber + " " + addressName + " " + "/n" + city + province + "/n";
+		output = output + addressNumber + " " + addressName + " " + "/n" + city + province + "/n" + postalCode + "/n";
 	}
 	/**
 	 * This method is used to format the phone number of the contestant
@@ -63,8 +63,9 @@ public class Label {
 		// TODO Auto-generated method stub
 		phoneNumber = ci.getPhoneNumber();
 
+		output = output + phoneNumber;
 	}
-	public String toString() {
+	public String outputString() {
 		
 		return output;
 		
