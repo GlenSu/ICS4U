@@ -21,6 +21,7 @@ public class main {
 	private static String birthDate;
 	private static String moreContestants;
 	private static String output;
+	private static String dateChecker;
 	private static int yyyy;
 	private static int mm;
 	private static int dd;
@@ -112,7 +113,12 @@ public class main {
 				try{
 					province = scan.nextLine();
 					contestant1.setProvince(province);
-					flag1 =false;
+					if (province.equals("NA")){
+						flag1 =true;
+					}
+					else{
+						flag1 =false;
+					}
 				}catch(InvalidInputException e){
 					System.out.println(e.getMessage());
 					flag1 =true;
@@ -129,7 +135,6 @@ public class main {
 				}catch(InvalidInputException e){
 					System.out.println(e.getMessage());
 					flag1 =true;
-					System.out.println("Please enter your postal code again.");
 				}
 			}
 			while(flag1);
@@ -151,8 +156,9 @@ public class main {
 			
 			do{
 				try{
-					yyyy = Integer.parseInt(scan.nextLine());
-					contestant1.setyyyy(yyyy);
+					dateChecker = scan.nextLine();
+					contestant1.setyyyy(dateChecker);
+					yyyy = Integer.parseInt(dateChecker);
 					age = findAge();
 					flag1 =false;
 				} catch (InvalidInputException e) {
@@ -166,8 +172,9 @@ public class main {
 
 			do{
 				try{
-					mm = Integer.parseInt(scan.nextLine());
-					contestant1.setmm(mm);
+					dateChecker = scan.nextLine();
+					contestant1.setmm(dateChecker);
+					mm = Integer.parseInt(dateChecker);
 					flag1 =false;
 				} catch (InvalidInputException e){
 					System.out.println(e.getMessage());
@@ -180,8 +187,9 @@ public class main {
 
 			do{
 				try{
-					dd = Integer.parseInt(scan.nextLine());
-					contestant1.setdd(dd);
+					dateChecker = scan.nextLine();
+					contestant1.setdd(dateChecker);
+					dd = Integer.parseInt(dateChecker);
 					flag1 =false;
 				}catch(InvalidInputException e){
 					System.out.println(e.getMessage());
@@ -197,13 +205,18 @@ public class main {
 			System.out.println("Please enter [1] for yes or [2] for no.");
 			moreContestants = scan.nextLine();
 			
-				if (moreContestants == "1" || moreContestants == "[1]"){
+				if (moreContestants.equals("1") || moreContestants.equals("[1]")){
 					flag1 = false;
 					flag2 = true;
 				}
-				else if (moreContestants == "2" || moreContestants == "[2]"){
+				else if (moreContestants.equals("2") || moreContestants.equals("[2]")){
 					flag1 = false;
 					flag2 = false;
+				}
+				else{
+					System.out.println("Please enter a proper input of [1] for yes or [2] for no.");
+					flag1 = true;
+					flag2 = true;
 				}
 			}
 			while(flag1);	
@@ -212,8 +225,8 @@ public class main {
 		while(flag2);
 		
 		Label output = new Label(contestant1);
-		
-		System.out.println(output.outputString());
+		System.out.println(contestant1.toString());
+		System.out.println(output.toString());
 		}
 
 	public static int findAge() {

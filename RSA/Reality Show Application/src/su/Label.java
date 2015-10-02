@@ -7,6 +7,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
+ * This class compiles the information of a contestant and sets the 
+ * information up so that it is ready to be moved or outputted as one unit
+ * 
  * @author Glen Su
  * Sept 28 2015
  */
@@ -42,7 +45,7 @@ public class Label {
 		// TODO Auto-generated method stub
 		firstName = ci.getFirstName();
 		lastName = ci.getLastName();
-		output = lastName + ", " + firstName + "/n";
+		output = lastName + ", " + firstName + "\n";
 	}
 	/**
 	 * This method is used to format the address information of the contestant
@@ -51,10 +54,11 @@ public class Label {
 		// TODO Auto-generated method stub
 		addressNumber = ci.getAddressNumber();
 		addressName = ci.getAddressName();
+		postalCode = ci.getPostalCode();
 		city = ci.getCity();
 		province = ci.getProvince();
 		
-		output = output + addressNumber + " " + addressName + " " + "/n" + city + province + "/n" + postalCode + "/n";
+		output = output + addressNumber + " " + addressName + " " + "\n" + city + " " + province + "\n" + postalCode + "\n";
 	}
 	/**
 	 * This method is used to format the phone number of the contestant
@@ -65,7 +69,11 @@ public class Label {
 
 		output = output + phoneNumber;
 	}
-	public String outputString() {
+	/**
+	 * This method is used to send the compiled information in the form of a single string
+	 * @return output
+	 */
+	public String toString() {
 		
 		return output;
 		

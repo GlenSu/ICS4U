@@ -10,7 +10,7 @@ import java.util.Scanner;
  * city, province, postal code, phone number and birth date.
  * 
  * @author Glen Su
- *	Sept 28 2015
+ *	Sept 29 2015
  */
 public class ContestantInformation {
 
@@ -32,7 +32,7 @@ public class ContestantInformation {
 	private String birthDate;
 	private Calendar calender = new GregorianCalendar();
 
-	public ContestantInformation (String firstName,String lastName,String addressNumber, String addressName, String city, String province, String postalCode, String phoneNumber,int yyyy, int mm, int dd) throws InvalidInputException{
+	public ContestantInformation (String firstName,String lastName,String addressNumber, String addressName, String city, String province, String postalCode, String phoneNumber, String yyyy, String mm, String dd) throws InvalidInputException{
 
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
@@ -70,11 +70,11 @@ public class ContestantInformation {
 			throw new InvalidInputException("Please enter your first name.");
 		}
 		for(int i = 0; i < firstName.length(); i++){
-			if(Character.isDigit(firstName.charAt(i))){
-				throw new InvalidInputException("Please do not enter digits in your name. Enter a proper name.");
+			if(!Character.isLetter(firstName.charAt(i))){
+				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		firstName.toUpperCase().charAt(0);
+		firstName.toUpperCase();
 		firstName.toLowerCase().substring(1);
 		this.firstName = firstName;
 	}
@@ -96,11 +96,11 @@ public class ContestantInformation {
 			throw new InvalidInputException("Please enter your last name.");
 		}
 		for(int i = 0; i < lastName.length(); i++){
-			if(Character.isDigit(lastName.charAt(i))){
-				throw new InvalidInputException("Please do not enter digits in your name.");
+			if(!Character.isLetter(lastName.charAt(i))){
+				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		lastName.toUpperCase().charAt(0);
+		lastName.toUpperCase();
 		lastName.toLowerCase().substring(1);
 		this.lastName = lastName;
 	}
@@ -118,21 +118,28 @@ public class ContestantInformation {
 	 * @throws InvalidInputException 
 	 */
 	public void setAddressNumber(String addressNumber) throws InvalidInputException {
-		if(addressNumber.length() <= 0){
-			throw new InvalidInputException("Please enter your street number.");
+		int adlength = addressNumber.length();
+		if(adlength <= 0){
+			throw new InvalidInputException("Please enter your street address number.");
 		}
-		else if(addressNumber.length() > 2){
-			if(Character.isLetter(addressNumber.charAt(addressNumber.length() - 2))){
-				throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
-			}
+		else if(adlength > 10){
+			throw new InvalidInputException("This address seems a little too long. Please input a smaller address");
 		}
-		else if(addressNumber.length() < 1){
-			for(int i = 0; i< addressNumber.length(); i++){
-				if(!Character.isLetter(addressNumber.charAt(i))){
+		else if(adlength > 2){
+			for(int i = adlength - 2; i > 0; i--){
+				if(!Character.isDigit(addressNumber.charAt(adlength - i))){
 					throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
 				}
 			}
 		}
+		else if(adlength <= 1){
+			for(int i = 0; i< adlength; i++){
+				if(!Character.isDigit(addressNumber.charAt(i))){
+					throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
+				}
+			}
+		}
+		
 		addressNumber.toUpperCase().charAt(0);
 		this.addressNumber = addressNumber;
 	}
@@ -146,22 +153,41 @@ public class ContestantInformation {
 
 	/**
 	 * This method is used to send the street name of the contestant. 
-	 * The user inputs their street name but has to choose the suffix from a selection box. 
+	 * The user inputs their street name and suffix
 	 * @param addressName the addressName to set
 	 * @throws InvalidInputException 
 	 */
+	//main include an option to choose the suffix from a selection box.
 	public void setAddressName(String addressName) throws InvalidInputException {
+		int count = 0;
+		int space = 0;
 		if(addressName.length() <= 0){
-			throw new InvalidInputException("Please enter your street name.");
+			throw new InvalidInputException("Please enter your street address name.");
+		}
+		if(addressName.length() <= 0){
+			throw new InvalidInputException("Please enter your street address name.");
 		}
 		for(int i = 0; i< addressName.length(); i++){
-			if(!Character.isLetterOrDigit(addressName.charAt(i))){
+			if(!Character.isLetterOrDigit(addressName.charAt(i)) && !Character.isSpaceChar(addressName.charAt(i))){
 				throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
 			}
-		}
-		
+			else if(Character.isSpaceChar(addressName.charAt(i))){
+				count++;
+				space = i;
+			}
+			if(count >= 2){
+				throw new InvalidInputException("There are too many spaces in the street name. Try a new input.");
+			}
+			else if(count >= 2){
+				throw new InvalidInputException("There are too little spaces in the street name. Try a new input.");
+			}
+		}	
 		addressName.toUpperCase().charAt(0);
 		addressName.toLowerCase().substring(1);
+		if (count == 1){
+			addressName.toUpperCase().charAt(space);
+			addressName.toLowerCase().substring(space - 1);
+		}
 		this.addressName = addressName;
 	}
 
@@ -186,7 +212,7 @@ public class ContestantInformation {
 				throw new InvalidInputException("This is not a city name. Please only enter letters.");
 			}
 		}
-		city.toUpperCase().charAt(0);
+		city.toUpperCase();
 		city.toLowerCase().substring(1);
 		this.city = city;
 	}
@@ -203,62 +229,83 @@ public class ContestantInformation {
 	 * @param province the province to set
 	 * @throws InvalidInputException 
 	 */
-	public void setProvince(String province) throws InvalidInputException {
-		if(province.length() <= 0){
-			throw new InvalidInputException("Please enter the province or territory name you are from.");
-		}
-		for(int i = 0; i< province.length(); i++){
-			if(Character.isDigit(province.charAt(i))){
-				throw new InvalidInputException("This is not a province name. Please only enter letters.");
+	public String setProvince(String province) throws InvalidInputException {
+		boolean flag = false;
+		do{
+			if(province.length() <= 0){
+				throw new InvalidInputException("Please enter the province or territory you are from.");
+			}
+			for(int i = 0; i< province.length(); i++){
+				if(Character.isDigit(province.charAt(i))){
+					throw new InvalidInputException("This is not a province name. Please only enter letters.");
+				}
+			}
+			province.toUpperCase().charAt(0);
+			province.toLowerCase().substring(1);
+
+			if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
+				this.province = "ON";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("British Columbia")|| province.equalsIgnoreCase("B.C.") || province.equalsIgnoreCase("BC")){
+				this.province = "BC";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Alberta")|| province.equalsIgnoreCase("Alta.") || province.equalsIgnoreCase("AB")){
+				this.province = "AB";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Manitoba")|| province.equalsIgnoreCase("Man.") || province.equalsIgnoreCase("MB")){
+				this.province = "MB";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("New Brunswick")|| province.equalsIgnoreCase("N.B.") || province.equalsIgnoreCase("NB")){
+				this.province = "NB";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Newfoundland and Labrador")|| province.equalsIgnoreCase("Newfoundland") || province.equalsIgnoreCase("Labrador") ||  province.equalsIgnoreCase("LB") || province.equalsIgnoreCase("NL") || province.equalsIgnoreCase("NF") ||  province.equalsIgnoreCase("Nfld.")){
+				this.province = "NL";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Nova Scotia")|| province.equalsIgnoreCase("N.S.") || province.equalsIgnoreCase("NS")){
+				this.province = "NS";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Northwest Territories")|| province.equalsIgnoreCase("N.W.T.") || province.equalsIgnoreCase("NT") || province.equalsIgnoreCase("NWT")){
+				this.province = "NT";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Nunavut")|| province.equalsIgnoreCase("Nun.") || province.equalsIgnoreCase("Nvt.") || province.equalsIgnoreCase("NU")){
+				this.province = "NU";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Quebec")|| province.equalsIgnoreCase("Que.") || province.equalsIgnoreCase("QC")){
+				this.province = "QC";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Prince Edward Island")|| province.equalsIgnoreCase("P.E.I.") || province.equalsIgnoreCase("PEI") || province.equalsIgnoreCase("PE")){
+				this.province = "PE";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Saskatchewan")|| province.equalsIgnoreCase("Sask.") || province.equalsIgnoreCase("SK")){
+				this.province = "SK";
+				flag = false;
+			}
+			else if(province.equalsIgnoreCase("Yukon Territories")|| province.equalsIgnoreCase("Yukon") || province.equalsIgnoreCase("YT")){
+				this.province = "YT";
+				flag = false;
+			}
+			else {
+				System.out.println("Your input was not in the database, please check your spelling and try again.");
+				province = "NA";
+				flag = true;
+			}
+			if (flag){
+				province = scan.nextLine();
 			}
 		}
-		province.toUpperCase().charAt(0);
-		province.toLowerCase().substring(1);
-		
-		if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
-			this.province = "ON";
-		}
-		else if(province.equalsIgnoreCase("British Columbia")|| province.equalsIgnoreCase("B.C.") || province.equalsIgnoreCase("BC")){
-			this.province = "BC";
-		}
-		else if(province.equalsIgnoreCase("Alberta")|| province.equalsIgnoreCase("Alta.") || province.equalsIgnoreCase("AB")){
-			this.province = "AB";
-		}
-		else if(province.equalsIgnoreCase("Manitoba")|| province.equalsIgnoreCase("Man.") || province.equalsIgnoreCase("MB")){
-			this.province = "MB";
-		}
-		else if(province.equalsIgnoreCase("New Brunswick")|| province.equalsIgnoreCase("N.B.") || province.equalsIgnoreCase("NB")){
-			this.province = "NB";
-		}
-		else if(province.equalsIgnoreCase("Newfoundland and Labrador")|| province.equalsIgnoreCase("Newfoundland") || province.equalsIgnoreCase("Labrador") ||  province.equalsIgnoreCase("LB") || province.equalsIgnoreCase("NL") || province.equalsIgnoreCase("NF") ||  province.equalsIgnoreCase("Nfld.")){
-			this.province = "NL";
-		}
-		else if(province.equalsIgnoreCase("Nova Scotia")|| province.equalsIgnoreCase("N.S.") || province.equalsIgnoreCase("NS")){
-			this.province = "NS";
-		}
-		else if(province.equalsIgnoreCase("Northwest Territories")|| province.equalsIgnoreCase("N.W.T.") || province.equalsIgnoreCase("NT") || province.equalsIgnoreCase("NWT")){
-			this.province = "NT";
-		}
-		else if(province.equalsIgnoreCase("Nunavut")|| province.equalsIgnoreCase("Nun.") || province.equalsIgnoreCase("Nvt.") || province.equalsIgnoreCase("NU")){
-			this.province = "NU";
-		}
-		else if(province.equalsIgnoreCase("Quebec")|| province.equalsIgnoreCase("Que.") || province.equalsIgnoreCase("QC")){
-			this.province = "QC";
-		}
-		else if(province.equalsIgnoreCase("Prince Edward Island")|| province.equalsIgnoreCase("P.E.I.") || province.equalsIgnoreCase("PEI") || province.equalsIgnoreCase("PE")){
-			this.province = "PE";
-		}
-		else if(province.equalsIgnoreCase("Saskatchewan")|| province.equalsIgnoreCase("Sask.") || province.equalsIgnoreCase("SK")){
-			this.province = "SK";
-		}
-		else if(province.equalsIgnoreCase("Yukon Territories")|| province.equalsIgnoreCase("Yukon") || province.equalsIgnoreCase("YT")){
-			this.province = "YT";
-		}
-		else {
-			System.out.println("Your input was not in the database, please check your spelling and try again.");
-			this.province = "null";
-		}
-
+		while(flag);
+		return province;	
 		//this.province = province.;
 	}
 
@@ -271,7 +318,7 @@ public class ContestantInformation {
 
 	/**
 	 * This method is used to send the postal code of the contestant. 
-	 * Input must be in the format: X#X#X#.
+	 * Input must be in the format of: X#X#X# where 'X' is a letter and # is a number.
 	 * @param postalCode the postalCode to set
 	 * @throws InvalidInputException 
 	 */
@@ -300,7 +347,7 @@ public class ContestantInformation {
 				}
 			}
 		}
-		postalCode.toUpperCase().charAt(0);
+		postalCode.toUpperCase();
 
 		this.postalCode = postalCode;
 	}
@@ -314,7 +361,8 @@ public class ContestantInformation {
 
 	/**
 	 * This method is used to send the phone number of the user.
-	 * Information must be in the format: ##########.
+	 * Information must be in the format of: ########## where '#' is a number.
+	 * This will also format the phone number.
 	 * @param phoneNumber the phoneNumber to set
 	 * @throws InvalidInputException 
 	 */
@@ -337,23 +385,24 @@ public class ContestantInformation {
 		}
 		String areaCode = "(";
 		for (int i = 0; i< phoneNumber.length(); i++){
-			if(i < 4){
+			if(i < 3){
 				
 				areaCode = areaCode + phoneNumber.charAt(i);
 			}
-			else if(i==4){
+			else if(i==3){
 				areaCode = areaCode + ") " + phoneNumber.charAt(i);
 			}
-			else if(i == 5 || i== 6){
+			else if(i == 4 || i== 5){
 				areaCode = areaCode + phoneNumber.charAt(i);
 			}
-			else if(i == 7){
+			else if(i == 6){
 				areaCode = areaCode + " - " + phoneNumber.charAt(i);
 			}
-			else if(i>7){
+			else if(i>6){
 				areaCode = areaCode + phoneNumber.charAt(i);
 			}
 		}
+		this.phoneNumber = areaCode;
 	}
 
 
@@ -365,19 +414,23 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * @param yyyy the yyyy to set
+	 * This method is used to format the year the contestant was born in.
+	 * @param dateChecker the yyyy to set
 	 * @throws InvalidInputException 
 	 */
-	public void setyyyy(int yyyy) throws InvalidInputException {
-		if(yyyy <= 0){
+	public void setyyyy(String dateChecker) throws InvalidInputException {
+		if(dateChecker.length() <= 0){
 			throw new InvalidInputException("Please enter your year of birth.");
 		}
-		for (int i = 0; i < yyyy; i++){
-			if(!Character.isDigit(yyyy)){
+		else if(Integer.parseInt(dateChecker) >= 2016){
+			throw new InvalidInputException("This year is too far in the future. Please enter a proper value.");
+		}
+		for (int i = 0; i< dateChecker.length(); i++){
+			if(!Character.isDigit(dateChecker.charAt(i))){
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-		this.yyyy = yyyy;
+		this.yyyy = Integer.parseInt(dateChecker);
 	}
 
 	/**
@@ -388,19 +441,23 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * @param mm the mm to set
+	 * This method is used to format the month the contestant was born in.
+	 * @param dateChecker the mm to set
 	 * @throws InvalidInputException 
 	 */
-	public void setmm(int mm) throws InvalidInputException {
-		if(mm <= 0){
+	public void setmm(String dateChecker) throws InvalidInputException {
+		if(dateChecker.length() <= 0){
 			throw new InvalidInputException("Please enter your month of birth.");
 		}
-		for (int i = 0; i < mm; i++){
-			if(!Character.isDigit(mm)){
+		else if(Integer.parseInt(dateChecker) >= 13){
+			throw new InvalidInputException("This month does not exist. Please enter a proper value.");
+		}
+		for (int i = 0; i < dateChecker.length(); i++){
+			if(!Character.isDigit(dateChecker.charAt(i))){
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-		this.mm = mm;
+		this.mm = Integer.parseInt(dateChecker);
 	}
 
 	/**
@@ -411,19 +468,33 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * @param dd the dd to set
+	 * This method is used to format the day the contestant was born on.
+	 * @param dateChecker the dd to set
 	 * @throws InvalidInputException 
 	 */
-	public void setdd(int dd) throws InvalidInputException {
-		if(dd <= 0){
+	public void setdd(String dateChecker) throws InvalidInputException {
+		if(dateChecker.length() <= 0){
 			throw new InvalidInputException("Please enter your day of birth.");
 		}
-		for (int i = 0; i < dd; i++){
-			if(!Character.isDigit(dd)){
+		
+		for (int i = 0; i < dateChecker.length(); i++){
+			if(!Character.isDigit(dateChecker.charAt(i))){
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-		this.dd = dd;
+		if(Integer.parseInt(dateChecker) >= 32){
+			throw new InvalidInputException("This day does not exist. Please enter a proper value.");
+		}
+		else if(Integer.parseInt(dateChecker) >= 32 && mm == 01 && mm == 03 && mm == 05 && mm == 07 && mm == 10 && mm == 12){
+			throw new InvalidInputException("This day does not exist. Please enter a proper value.");
+		}
+		else if(Integer.parseInt(dateChecker) >= 31 && mm == 04 && mm == 06 && mm == 8 && mm == 9 && mm == 11){
+			throw new InvalidInputException("This day does not exist. Please enter a proper value.");
+		}
+		else if(Integer.parseInt(dateChecker) >= 29 && mm == 02){
+			throw new InvalidInputException("This day does not exist. Please enter a proper value.");
+		}
+		this.dd = Integer.parseInt(dateChecker);
 	}
 
 	/**
@@ -434,7 +505,22 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * @param birthDate the birthDate to set
+	 * This method is used to format the full date the contestant was born in.
+	 * @param yyyy
+	 * @param mm
+	 * @param dd
+	 */
+	public void setBirthDate(String yyyy, String mm, String dd) {
+		this.calender.set(Integer.parseInt(yyyy), Integer.parseInt(mm), Integer.parseInt(dd));
+		this.birthDate = calender.toString();
+		
+	}
+	
+	/**
+	 * This method is used to format the full date the contestant was born in.
+	 * @param yyyy
+	 * @param mm
+	 * @param dd
 	 */
 	public void setBirthDate(int yyyy, int mm, int dd) {
 		this.calender.set(yyyy, mm, dd);
