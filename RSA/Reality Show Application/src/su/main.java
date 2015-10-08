@@ -10,34 +10,82 @@ import java.util.*;
  * Sept 29 2015
  */
 public class main {
-	private static String firstName;
-	private static String lastName;
-	private static String addressNumber;
-	private static String addressName;
-	private static String city;
-	private static String province;
-	private static String postalCode;
-	private static String phoneNumber;
-	private static String birthDate;
-	private static String moreContestants;
-	private static String output;
-	private static String dateChecker;
-	private static int yyyy;
-	private static int mm;
-	private static int dd;
+	
 
 	
 	
 	/**
+	 * This is the main method of the program
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		boolean flag1 = true;
+		String userAnswer;
 		Scanner scan = new Scanner(System.in);
 		ArrayList<ContestantInformation> contestants = new ArrayList<ContestantInformation>();
+
+		System.out.println("Welcome to the contestant application form.");
+		System.out.println("Please enter the number corresponding to the option to choose that option.");
+		System.out.println("1. Add a new contestant.");
+		System.out.println("2. Print out all the contestant information.");
+		System.out.println("3. Exit the program.");
+
+		do{
+			userAnswer = scan.nextLine();
+			for(int i = 0; i< userAnswer.length(); i++){
+				if(!Character.isDigit(userAnswer.charAt(i)) && userAnswer.substring(i) == "." || userAnswer.substring(i) == ","){
+					System.out.println("");
+					i = userAnswer.length(); 
+				}					
+			}
+			if(userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("1.") || userAnswer.equalsIgnoreCase("1,")){
+				System.out.println("Initiating option.");
+				System.out.println();
+				addContestant(contestants);
+				flag1 = true;
+				System.out.println("Task completed.");
+				System.out.println("Is there something else you would like to do?");
+			}
+			else if(userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("2.") || userAnswer.equalsIgnoreCase("2,")){
+				System.out.println("Initiating option.");
+				System.out.println();
+				displayLabel(contestants);
+				flag1 = true;
+				System.out.println("Task completed.");
+				System.out.println("Is there something else you would like to do?");
+			}
+			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
+				System.out.println("Thank you for choosing this program for organising contestant data.");
+				flag1 = false;
+			}
+			else{
+				System.out.println("That was not a valid option.");
+				System.out.println("Please input a proper value. [1, 2, or 3]");
+			}
+		}while(flag1);
+	}
+
+	public static void addContestant(ArrayList<ContestantInformation> contestants){
+		Scanner scan = new Scanner(System.in);
 		ContestantInformation contestant1 = new ContestantInformation();
 		
 		int age = 0;
+		String firstName;
+		String lastName;
+		String addressNumber;
+		String addressName;
+		String city;
+		String province;
+		String postalCode;
+		String phoneNumber;
+		String birthDate;
+		String moreContestants;
+		String output;
+		String dateChecker;
+		int yyyy=0;
+		int mm=0;
+		int dd=0;
 		boolean flag1 = false;
 		boolean flag2 = false;
 		do{
@@ -159,7 +207,7 @@ public class main {
 					dateChecker = scan.nextLine();
 					contestant1.setyyyy(dateChecker);
 					yyyy = Integer.parseInt(dateChecker);
-					age = findAge();
+					age = findAge(yyyy);
 					flag1 =false;
 				} catch (InvalidInputException e) {
 					System.out.println(e.getMessage());
@@ -201,7 +249,7 @@ public class main {
 			contestant1.setBirthDate(yyyy, mm, dd);
 
 			do{
-			System.out.println("Is that all the contestants?");
+			System.out.println("Would you like to add another contestant?");
 			System.out.println("Please enter [1] for yes or [2] for no.");
 			moreContestants = scan.nextLine();
 			
@@ -223,15 +271,28 @@ public class main {
 		contestants.add(contestant1);
 		}
 		while(flag2);
-		
-		Label output = new Label(contestant1);
-		System.out.println(contestant1.toString());
-		System.out.println(output.toString());
-		}
-
-	public static int findAge() {
+	}
+	
+	/**
+	 * This method finds the age of a specified contestant.
+	 * @param yyyy
+	 * @return
+	 */
+	public static int findAge(int yyyy) {
 		// TODO Auto-generated method stub;
 		return yyyy - 2015;
 	}
-
+	
+	/**
+	 * This method prints out all the information of the inputed contestants.
+	 * @param contestants
+	 */
+	public static void displayLabel(ArrayList<ContestantInformation> contestants){
+		for(int i =0; i< contestants.size(); i++){
+			Label output = new Label(contestants.get(i));
+			System.out.println(contestants.get(i).toString());
+			System.out.println(output.toString());
+			System.out.println();
+		}
+	}
 }
