@@ -1,16 +1,17 @@
 package su;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
- * This class holds information for a contestant. It create fields for
+ * This class holds information for a contestant. It creates fields for
  * first name, last name, street address (street number and street name), 
  * city, province, postal code, phone number and birth date.
  * 
  * @author Glen Su
- *	Sept 29 2015
+ *	Oct 13 2015
  */
 public class ContestantInformation {
 
@@ -32,6 +33,21 @@ public class ContestantInformation {
 	private String birthDate;
 	private Calendar calender = new GregorianCalendar();
 
+	/**
+	 * This method is a constructor for a set of variables
+	 * @param firstName
+	 * @param lastName
+	 * @param addressNumber
+	 * @param addressName
+	 * @param city
+	 * @param province
+	 * @param postalCode
+	 * @param phoneNumber
+	 * @param yyyy
+	 * @param mm
+	 * @param dd
+	 * @throws InvalidInputException
+	 */
 	public ContestantInformation (String firstName,String lastName,String addressNumber, String addressName, String city, String province, String postalCode, String phoneNumber, String yyyy, String mm, String dd) throws InvalidInputException{
 
 		this.setFirstName(firstName);
@@ -61,7 +77,7 @@ public class ContestantInformation {
 	}
 	
 	/**
-	 * This method is used to send the first name of the contestant.
+	 * This method is used to set the first name of the contestant.
 	 * @param firstName the firstName to set
 	 * @throws InvalidInputException 
 	 */
@@ -87,7 +103,7 @@ public class ContestantInformation {
 	}
 	
 	/**
-	 * This method is used to send the last name of the contestant.
+	 * This method is used to set the last name of the contestant.
 	 * @param lastName the lastName to set
 	 * @throws InvalidInputException 
 	 */
@@ -113,7 +129,7 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * This is used to send the street number of the contestant.
+	 * This is used to set the street number of the contestant.
 	 * @param addressNumber the addressNumber to set
 	 * @throws InvalidInputException 
 	 */
@@ -152,12 +168,12 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * This method is used to send the street name of the contestant. 
+	 * This method is used to set the street name of the contestant. 
 	 * The user inputs their street name and suffix
 	 * @param addressName the addressName to set
 	 * @throws InvalidInputException 
 	 */
-	//main include an option to choose the suffix from a selection box.
+	//may include an option to choose the suffix from a selection box.
 	public void setAddressName(String addressName) throws InvalidInputException {
 		int count = 0;
 		int space = 0;
@@ -199,7 +215,7 @@ public class ContestantInformation {
 	}
 
 	/**	
-	 * This method is used to send the city name of the contestant.
+	 * This method is used to set the city name of the contestant.
 	 * @param city the city to set
 	 * @throws InvalidInputException 
 	 */
@@ -225,7 +241,7 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * This method is used to send the province name of the contestant. 
+	 * This method is used to set the province name of the contestant. 
 	 * @param province the province to set
 	 * @throws InvalidInputException 
 	 */
@@ -317,7 +333,7 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * This method is used to send the postal code of the contestant. 
+	 * This method is used to set the postal code of the contestant. 
 	 * Input must be in the format of: X#X#X# where 'X' is a letter and # is a number.
 	 * @param postalCode the postalCode to set
 	 * @throws InvalidInputException 
@@ -360,7 +376,7 @@ public class ContestantInformation {
 	}
 
 	/**
-	 * This method is used to send the phone number of the user.
+	 * This method is used to set the phone number of the user.
 	 * Information must be in the format of: ########## where '#' is a number.
 	 * This will also format the phone number.
 	 * @param phoneNumber the phoneNumber to set
@@ -534,5 +550,37 @@ public class ContestantInformation {
 	public String toString(){
 
 		return firstName + " " + lastName + " " + addressNumber + " " + addressName + " " + city + " " + province + " " + postalCode + " " + phoneNumber + " " + birthDate;
+	}
+	
+	/**
+	 * This method checks the array of ContestantInformation objects to see if a specified object is found
+	 * @param ci
+	 * @param target
+	 * @return [object]
+	 */
+	public static Object equals(ArrayList<ContestantInformation> ci, ContestantInformation target){
+		for(int i = 0; i < ci.size(); i++){		
+			if(ci.get(i).equals(target)){				
+				return(target);
+			}
+		}
+		return "-1";
+	}
+	
+	/**
+	 * This method checks to see if two ContestantInformation objects are the same
+	 * @param ci
+	 * @param target
+	 * @return [object] or -1
+	 */
+	public static Object compareTo(ContestantInformation ci, ContestantInformation target){
+		int compareTo = 0;
+		compareTo = ci.getClass().getName().compareTo(target.getClass().getName());
+		if(compareTo == 0){				
+			return(target);
+		}
+		else
+			return "-1";
+
 	}
 }

@@ -3,6 +3,7 @@
  */
 package Su;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -10,11 +11,11 @@ import java.util.Scanner;
  * array to find and return back to the user
  * 
  * @author Glen Su
- *	Oct 8 2015
+ *	Oct 13 2015
  */
 public class Searches {
-	// int search
-	public int linearSearches(int[] a){
+	// linear search for an int array
+	public static int linearSearches(int[] a){
 		int target = 0;	
 		for(int i = 0; i < a.length; i++){	
 			
@@ -25,8 +26,8 @@ public class Searches {
 		}
 		return -1;
 	}
-	
-	public int binarySearches(int[] a){
+	// binary search for an int array
+	public static int binarySearches(int[] a){
 		int begIndex = 0;
 		int endIndex = a.length;
 		int midIndex = (begIndex - endIndex) /2;
@@ -56,8 +57,8 @@ public class Searches {
 		}
 		return -1;
 	}
-	// double search
-	public double linearSearches(double[] a, double target){	
+	// linear search for a double array
+	public static double linearSearches(double[] a, double target){	
 		for(int i = 0; i < a.length; i++){		
 			if(a[i] == target){				
 				return(target);
@@ -65,8 +66,8 @@ public class Searches {
 		}
 		return -1;
 	}
-	
-	public double binarySearches(double[] a, double target){
+	// binary search for a double array
+	public static double binarySearches(double[] a, double target){
 		int begIndex = 0;
 		int endIndex = a.length;
 		int midIndex = (begIndex - endIndex) /2;
@@ -94,8 +95,8 @@ public class Searches {
 		}
 		return -1;
 	}
-	// string search
-	public String linearSearches(String[] a, String target){
+	// linear search for a string array
+	public static String linearSearches(String[] a, String target){
 		for(int i = 0; i < a.length; i++){		
 			if(a[i].equals(target)){				
 				return(target);
@@ -103,8 +104,8 @@ public class Searches {
 		}
 		return "-1";
 	}
-	
-	public String binarySearches(String[] a, String target){
+	// binary search for a string array
+	public static String binarySearches(String[] a, String target){
 		int compareTo = 0;
 		int begIndex = 0;
 		int endIndex = a.length;
@@ -134,11 +135,50 @@ public class Searches {
 		return "-1";
 	}
 	
-	public static void main(String args){
-		Scanner scan = new Scanner(System.in);
-		String[] strings = new String[] {"Table","Game","Pie","Flavoured"};
-		int[] ints = new int[] {1, 2, 3, 4, 5, 6, 7};
-		double[] doubles = new double[] {1.2083, 2.431, 4.596, 5.048, 7.654};		
-	}
+	// linear search for an object
+		public static Object linearSearches(ArrayList<?> a, Object target){
+			for(int i = 0; i < a.size(); i++){		
+				if(a.get(i).equals(target)){				
+					return(target);
+				}
+			}
+			return "-1";
+		}
+		// binary search for an object
+		public static Object binarySearches(ArrayList<?> a, Object target){
+			int compareTo = 0;
+			int begIndex = 0;
+			int endIndex = a.size();
+			int midIndex = (begIndex - endIndex) /2;	
+			for(int i = 0; i < a.size(); i++){	
+				compareTo = ((String) a.get(midIndex)).compareTo((String) target);
+				if(compareTo == 0){				
+					return(target);
+				}
+
+				else if(compareTo < 0){
+					begIndex = midIndex + 1;
+					midIndex = (begIndex - endIndex) /2;
+					if(midIndex == 0){
+						return "-1";
+					}
+				}
+				
+				else if(compareTo > 0){
+					endIndex = midIndex - 1;
+					midIndex = (begIndex - endIndex) /2;
+					if(midIndex == 0){
+						return "-1";
+					}
+				}
+			}
+			return "-1";
+		}
+		public static void main(String args){
+			Scanner scan = new Scanner(System.in);
+			String[] strings = new String[] {"Flavoured","Game","Pie","Table"};
+			int[] ints = new int[] {1, 2, 3, 4, 5, 6, 7};
+			double[] doubles = new double[] {1.2083, 2.431, 4.596, 5.048, 7.654};		
+		}
 
 }
