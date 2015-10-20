@@ -30,6 +30,7 @@ public class main {
 		System.out.println("1. Add a new contestant.");
 		System.out.println("2. Print out all the contestant information.");
 		System.out.println("3. Exit the program.");
+		System.out.println("4. Search for a contestant.");
 
 		do{
 			userAnswer = scan.nextLine();
@@ -58,6 +59,14 @@ public class main {
 			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
 				System.out.println("Thank you for choosing this program for organising contestant data.");
 				flag1 = false;
+			}
+			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
+				System.out.println("Initiating option.");
+				System.out.println();
+				displayLabel(contestants);
+				flag1 = true;
+				System.out.println("Task completed.");
+				System.out.println("Is there something else you would like to do?");
 			}
 			else{
 				System.out.println("That was not a valid option.");

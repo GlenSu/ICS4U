@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Su;
+package su;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -128,24 +128,62 @@ public class Searches {
 		}
 		return -1;
 	}
-		public static void main(String[] args){
-			Scanner scan = new Scanner(System.in);
-			String[] strings = new String[] {"Black","Blue","Brown","Cyan", "Green", "Grey", "Pink", "Red", "Yellow"};
-			int[] ints = new int[] {1, 2, 3, 4, 5, 6, 7};
-			double[] doubles = new double[] {1.2083, 2.431, 4.596, 5.048, 7.654};	
-			System.out.println(linearSearches(ints, 4));
-			System.out.println(linearSearches(ints, 8));
-			System.out.println(linearSearches(doubles, 2.431));
-			System.out.println(linearSearches(doubles, 9.324));
-			System.out.println(linearSearches(strings, "Cyan"));
-			System.out.println(linearSearches(strings, "Void"));
-			System.out.println("");
-			System.out.println(binarySearches(ints, 4));
-			System.out.println(binarySearches(ints, 8));
-			System.out.println(binarySearches(doubles, 2.431));
-			System.out.println(binarySearches(doubles, 9.324));
-			System.out.println(binarySearches(strings, "Cyan"));
-			System.out.println(binarySearches(strings, "Dirt"));
+	// linear search for an object
+		public static int linearSearches(ArrayList<ContestantInformation> a, ContestantInformation target){
+			for(int i = 0; i < a.size(); i++){		
+				if(a.get(i).equals(target)){				
+					return i;
+				}
+			}
+			return -1;
 		}
+		// binary search for an object
+		public static int binarySearches(ArrayList<ContestantInformation> a, String firstName, String lastName){
+			int compareTo = 0;
+			int begIndex = 0;
+			int endIndex = a.size();
+			int midIndex = (endIndex - begIndex) /2;	
+			for(int i = 0; i < a.size(); i++){	
+				compareTo = ((String) a.get(midIndex).getFirstName()).compareToIgnoreCase(firstName);
+				if(compareTo == 0){
+					compareTo = ((String) a.get(midIndex).getLastName()).compareToIgnoreCase(lastName);
+					if(compareTo == 0){				
+						return compareTo;
+					}
 
+					else if(compareTo < 0){
+						begIndex = midIndex + 1;
+						midIndex = (endIndex - begIndex) /2;
+						if(midIndex == 0){
+							return -1;
+						}
+					}
+					
+					else if(compareTo > 0){
+						endIndex = midIndex - 1;
+						midIndex = (endIndex - begIndex) /2;
+						if(midIndex == 0){
+							return -1;
+						}
+					}
+				}
+
+				else if(compareTo < 0){
+					begIndex = midIndex + 1;
+					midIndex = (endIndex - begIndex) /2;
+					if(midIndex == 0){
+						return -1;
+					}
+				}
+				
+				else if(compareTo > 0){
+					endIndex = midIndex - 1;
+					midIndex = (endIndex - begIndex) /2;
+					if(midIndex == 0){
+						return -1;
+					}
+				}
+			}
+			return -1;
+		}
 }

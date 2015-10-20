@@ -558,13 +558,13 @@ public class ContestantInformation {
 	 * @param target
 	 * @return [object]
 	 */
-	public static Object equals(ArrayList<ContestantInformation> ci, ContestantInformation target){
-		for(int i = 0; i < ci.size(); i++){		
-			if(ci.get(i).equals(target)){				
-				return(target);
+	public boolean equals(ContestantInformation target){
+
+			if(this.getFirstName().equals(target.getFirstName()) && this.getLastName().equals(target.getLastName())){				
+				return true;
 			}
-		}
-		return "-1";
+
+		return false;
 	}
 	
 	/**
@@ -573,14 +573,60 @@ public class ContestantInformation {
 	 * @param target
 	 * @return [object] or -1
 	 */
-	public static Object compareTo(ContestantInformation ci, ContestantInformation target){
+	public int compareTo(ContestantInformation ci){
 		int compareTo = 0;
-		compareTo = ci.getClass().getName().compareTo(target.getClass().getName());
+		compareTo = ci.getFirstName().compareTo(this.getFirstName());
+		if(compareTo == 0)
+		{				
+			compareTo = ci.getLastName().compareTo(this.getLastName());
+			if(compareTo == 0){				
+				return 0;
+			}
+			else if (compareTo > 0)
+			{
+				return 1;
+			}
+			else //if (compareTo < 0)
+			{
+				return -1;
+			}
+		}
+		else if (compareTo > 0)
+		{
+			return 1;
+		}
+		else //if (compareTo < 0)
+		{
+			return -1;
+		}
+
+	}
+	
+	public static Object compareToNames(ContestantInformation ci, ContestantInformation target){
+		int compareTo = 0;
+		compareTo = ci.getFirstName().compareTo(target.getFirstName());
 		if(compareTo == 0){				
-			return(target);
+			compareTo = ci.getLastName().compareTo(target.getLastName());
+			if (compareTo >= 0){
+				return target;
+			}
+			else if (compareTo < 0){
+				return ci;
+			}
+			else
+			{
+				return "-1";
+			}
+		}
+		else if (compareTo > 0){
+			return target;
+		}
+		else if (compareTo < 0){
+			return ci;
 		}
 		else
+		{
 			return "-1";
-
+		}
 	}
 }
