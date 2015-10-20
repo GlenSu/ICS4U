@@ -21,7 +21,10 @@ public class main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		boolean flag1 = true;
+		int compareToValue;
 		String userAnswer;
+		String firstName;
+		String lastName;
 		Scanner scan = new Scanner(System.in);
 		ArrayList<ContestantInformation> contestants = new ArrayList<ContestantInformation>();
 
@@ -29,8 +32,9 @@ public class main {
 		System.out.println("Please enter the number corresponding to the option to choose that option.");
 		System.out.println("1. Add a new contestant.");
 		System.out.println("2. Print out all the contestant information.");
-		System.out.println("3. Exit the program.");
-		System.out.println("4. Search for a contestant.");
+		System.out.println("3. Search for a contestant.");
+		System.out.println("4. Exit the program.");
+		
 
 		do{
 			userAnswer = scan.nextLine();
@@ -57,16 +61,36 @@ public class main {
 				System.out.println("Is there something else you would like to do?");
 			}
 			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
-				System.out.println("Thank you for choosing this program for organising contestant data.");
-				flag1 = false;
-			}
-			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
 				System.out.println("Initiating option.");
 				System.out.println();
-				displayLabel(contestants);
+				System.out.println("Enter a first name to search for.");
+				firstName = scan.nextLine();
+				ContestantInformation.wordFormatting(firstName);
+				System.out.println(firstName);
+				System.out.println("Enter a last name to search for.");
+				lastName = scan.nextLine();
+				ContestantInformation.wordFormatting(lastName);
+				System.out.println(lastName);
+				compareToValue = Searches.linearSearches(contestants,firstName,lastName);
 				flag1 = true;
 				System.out.println("Task completed.");
+				
+				if(compareToValue > -1){
+					System.out.println("The contestant inforamtion has been found to be in the index of :" + compareToValue + " of the array list.");
+				}
+				else if(compareToValue == -1){
+					System.out.println("This contestant does not exist in the data bank.");
+				}
+				else{
+					System.out.println("An error has occured");
+				}
+				
 				System.out.println("Is there something else you would like to do?");
+			}
+			else if(userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("4.") || userAnswer.equalsIgnoreCase("4,")){
+				System.out.println("Thank you for choosing this program for organising contestant data.");
+				System.exit(0);
+				flag1 = false;
 			}
 			else{
 				System.out.println("That was not a valid option.");

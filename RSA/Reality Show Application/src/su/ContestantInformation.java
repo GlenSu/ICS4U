@@ -90,8 +90,7 @@ public class ContestantInformation {
 				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		firstName.toUpperCase();
-		firstName.toLowerCase().substring(1);
+		wordFormatting(firstName);
 		this.firstName = firstName;
 	}
 	
@@ -116,8 +115,7 @@ public class ContestantInformation {
 				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		lastName.toUpperCase();
-		lastName.toLowerCase().substring(1);
+		wordFormatting(lastName);
 		this.lastName = lastName;
 	}
 
@@ -155,7 +153,6 @@ public class ContestantInformation {
 				}
 			}
 		}
-		
 		addressNumber.toUpperCase().charAt(0);
 		this.addressNumber = addressNumber;
 	}
@@ -198,8 +195,7 @@ public class ContestantInformation {
 				throw new InvalidInputException("There are too little spaces in the street name. Try a new input.");
 			}
 		}	
-		addressName.toUpperCase().charAt(0);
-		addressName.toLowerCase().substring(1);
+		wordFormatting(addressName);
 		if (count == 1){
 			addressName.toUpperCase().charAt(space);
 			addressName.toLowerCase().substring(space - 1);
@@ -228,8 +224,7 @@ public class ContestantInformation {
 				throw new InvalidInputException("This is not a city name. Please only enter letters.");
 			}
 		}
-		city.toUpperCase();
-		city.toLowerCase().substring(1);
+
 		this.city = city;
 	}
 
@@ -256,8 +251,7 @@ public class ContestantInformation {
 					throw new InvalidInputException("This is not a province name. Please only enter letters.");
 				}
 			}
-			province.toUpperCase().charAt(0);
-			province.toLowerCase().substring(1);
+			wordFormatting(province);
 
 			if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
 				this.province = "ON";
@@ -568,7 +562,7 @@ public class ContestantInformation {
 	}
 	
 	/**
-	 * This method checks to see if two ContestantInformation objects are the same
+	 * This method checks to see if two ContestantInformation objects are the same or if one has a higher letter value than the other
 	 * @param ci
 	 * @param target
 	 * @return [object] or -1
@@ -599,34 +593,26 @@ public class ContestantInformation {
 		{
 			return -1;
 		}
-
 	}
-	
-	public static Object compareToNames(ContestantInformation ci, ContestantInformation target){
-		int compareTo = 0;
-		compareTo = ci.getFirstName().compareTo(target.getFirstName());
-		if(compareTo == 0){				
-			compareTo = ci.getLastName().compareTo(target.getLastName());
-			if (compareTo >= 0){
-				return target;
-			}
-			else if (compareTo < 0){
-				return ci;
+	/**
+	 * This method is used to format string inputs into proper english formatting
+	 * @param word
+	 * @return
+	 */
+	public static String wordFormatting(String word){
+		String newWord;
+		newWord = Character.toUpperCase(word.charAt(0)) + "";
+		for (int i = 1; i< word.length(); i++){
+			if (Character.isSpaceChar(word.charAt(i))){
+				if(i+1 < word.length() && !Character.isSpaceChar(word.charAt(i))){
+					newWord = newWord + Character.toUpperCase(word.charAt(i+1));
+				}
 			}
 			else
 			{
-				return "-1";
+				newWord = newWord + Character.toLowerCase(word.charAt(i));
 			}
 		}
-		else if (compareTo > 0){
-			return target;
-		}
-		else if (compareTo < 0){
-			return ci;
-		}
-		else
-		{
-			return "-1";
-		}
+		return newWord;
 	}
 }

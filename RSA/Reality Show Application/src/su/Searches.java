@@ -11,10 +11,15 @@ import java.util.Scanner;
  * array to find and return back to the user
  * 
  * @author Glen Su
- *	Oct 13 2015
+ *	Oct 20 2015
  */
 public class Searches {
-	// linear search for an int array
+	/**
+	 * 
+	 * @param a
+	 * @param target
+	 * @return
+	 */
 	public static int linearSearches(int[] a, int target){	
 		for(int i = 0; i < a.length; i++){	
 			
@@ -25,7 +30,12 @@ public class Searches {
 		}
 		return -1;
 	}
-	// binary search for an int array
+	/**
+	 * 
+	 * @param a
+	 * @param target
+	 * @return
+	 */
 	public static int binarySearches(int[] a, int target){
 		int begIndex = 0;
 		int endIndex = a.length;
@@ -54,7 +64,12 @@ public class Searches {
 		}
 		return -1;
 	}
-	// linear search for a double array
+	/**
+	 * 
+	 * @param a
+	 * @param target
+	 * @return
+	 */
 	public static int linearSearches(double[] a, double target){	
 		for(int i = 0; i < a.length; i++){		
 			if(a[i] == target){				
@@ -63,7 +78,12 @@ public class Searches {
 		}
 		return -1;
 	}
-	// binary search for a double array
+	/**
+	 * 
+	 * @param a
+	 * @param target
+	 * @return
+	 */
 	public static int binarySearches(double[] a, double target){
 		int begIndex = 0;
 		int endIndex = a.length;
@@ -91,7 +111,12 @@ public class Searches {
 		}
 		return -1;
 	}
-	// linear search for a string array
+	/**
+	 * 
+	 * @param a
+	 * @param target
+	 * @return
+	 */
 	public static int linearSearches(String[] a, String target){
 		for(int i = 0; i < a.length; i++){		
 			if(a[i].equals(target)){				
@@ -100,7 +125,12 @@ public class Searches {
 		}
 		return -1;
 	}
-	// binary search for a string array
+	/**
+	 * 
+	 * @param a
+	 * @param target
+	 * @return
+	 */
 	public static int binarySearches(String[] a, String target){
 		double compareTo = 0;
 		double begIndex = 0;
@@ -128,44 +158,35 @@ public class Searches {
 		}
 		return -1;
 	}
-	// linear search for an object
-		public static int linearSearches(ArrayList<ContestantInformation> a, ContestantInformation target){
-			for(int i = 0; i < a.size(); i++){		
-				if(a.get(i).equals(target)){				
-					return i;
-				}
+	/**
+	 * 
+	 * @param a
+	 * @param target
+	 * @return
+	 */
+	public static int linearSearches(ArrayList<ContestantInformation> a, ContestantInformation target){
+		for(int i = 0; i < a.size(); i++){		
+			if(a.get(i).equals(target)){				
+				return i;
 			}
-			return -1;
 		}
-		// binary search for an object
-		public static int binarySearches(ArrayList<ContestantInformation> a, String firstName, String lastName){
+		return -1;
+	}
+	/**
+	 * 
+	 * @param a
+	 * @param target
+	 * @return
+	 */
+		public static int binarySearches(ArrayList<ContestantInformation> a, ContestantInformation target){
 			int compareTo = 0;
 			int begIndex = 0;
 			int endIndex = a.size();
 			int midIndex = (endIndex - begIndex) /2;	
 			for(int i = 0; i < a.size(); i++){	
-				compareTo = ((String) a.get(midIndex).getFirstName()).compareToIgnoreCase(firstName);
-				if(compareTo == 0){
-					compareTo = ((String) a.get(midIndex).getLastName()).compareToIgnoreCase(lastName);
-					if(compareTo == 0){				
+				compareTo = ((String) a.get(midIndex).getFirstName()).compareToIgnoreCase(target.getFirstName());
+				if(compareTo == 0){			
 						return compareTo;
-					}
-
-					else if(compareTo < 0){
-						begIndex = midIndex + 1;
-						midIndex = (endIndex - begIndex) /2;
-						if(midIndex == 0){
-							return -1;
-						}
-					}
-					
-					else if(compareTo > 0){
-						endIndex = midIndex - 1;
-						midIndex = (endIndex - begIndex) /2;
-						if(midIndex == 0){
-							return -1;
-						}
-					}
 				}
 
 				else if(compareTo < 0){
@@ -175,7 +196,7 @@ public class Searches {
 						return -1;
 					}
 				}
-				
+
 				else if(compareTo > 0){
 					endIndex = midIndex - 1;
 					midIndex = (endIndex - begIndex) /2;
@@ -186,4 +207,74 @@ public class Searches {
 			}
 			return -1;
 		}
+	/**
+	 * 
+	 * @param a
+	 * @param firstName
+	 * @param lastName
+	 * @return
+	 */
+		public static int linearSearches(ArrayList<ContestantInformation> a, String firstName, String lastName){
+			for(int i = 0; i < a.size(); i++){		
+				if(a.get(i).getFirstName().equals(firstName)){				
+					return i;
+				}
+			}
+			return -1;
+		}
+	/**
+	 * 
+	 * @param a
+	 * @param firstName
+	 * @param lastName
+	 * @return
+	 */
+	public static int binarySearches(ArrayList<ContestantInformation> a, String firstName, String lastName){
+		int compareTo = 0;
+		int begIndex = 0;
+		int endIndex = a.size();
+		int midIndex = (endIndex - begIndex) /2;	
+		for(int i = 0; i < a.size(); i++){	
+			compareTo = ((String) a.get(midIndex).getFirstName()).compareToIgnoreCase(firstName);
+			if(compareTo == 0){
+				compareTo = ((String) a.get(midIndex).getLastName()).compareToIgnoreCase(lastName);
+				if(compareTo == 0){				
+					return compareTo;
+				}
+
+				else if(compareTo < 0){
+					begIndex = midIndex + 1;
+					midIndex = (endIndex - begIndex) /2;
+					if(midIndex == 0){
+						return -1;
+					}
+				}
+
+				else if(compareTo > 0){
+					endIndex = midIndex - 1;
+					midIndex = (endIndex - begIndex) /2;
+					if(midIndex == 0){
+						return -1;
+					}
+				}
+			}
+
+			else if(compareTo < 0){
+				begIndex = midIndex + 1;
+				midIndex = (endIndex - begIndex) /2;
+				if(midIndex == 0){
+					return -1;
+				}
+			}
+
+			else if(compareTo > 0){
+				endIndex = midIndex - 1;
+				midIndex = (endIndex - begIndex) /2;
+				if(midIndex == 0){
+					return -1;
+				}
+			}
+		}
+		return -1;
+	}
 }
