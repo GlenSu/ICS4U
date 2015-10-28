@@ -13,7 +13,8 @@ import java.util.Scanner;
  * @author Glen Su
  *	Oct 13 2015
  */
-public class ContestantInformation {
+
+public class ContestantInformation implements Comparable{
 
 	//initializations for first name, last name, street address (street number and street name), city, province, postal code, phone number and birth date
 
@@ -567,7 +568,8 @@ public class ContestantInformation {
 	 * @param target
 	 * @return [object] or -1
 	 */
-	public int compareTo(ContestantInformation ci){
+	public int compareTo(Object args){
+		ContestantInformation ci = (ContestantInformation)args;
 		int compareTo = 0;
 		compareTo = ci.getFirstName().compareTo(this.getFirstName());
 		if(compareTo == 0)
@@ -600,17 +602,15 @@ public class ContestantInformation {
 	 * @return
 	 */
 	public static String wordFormatting(String word){
-		String newWord;
-		newWord = Character.toUpperCase(word.charAt(0)) + "";
-		for (int i = 1; i< word.length(); i++){
+		char[] letters = new char[word.length()];
+		String newWord = "";
+		for (int i = 0; i< word.length(); i++){
 			if (Character.isSpaceChar(word.charAt(i))){
-				if(i+1 < word.length() && !Character.isSpaceChar(word.charAt(i))){
-					newWord = newWord + Character.toUpperCase(word.charAt(i+1));
-				}
+				
 			}
 			else
 			{
-				newWord = newWord + Character.toLowerCase(word.charAt(i));
+			letters[i] = word.charAt(i);
 			}
 		}
 		return newWord;
