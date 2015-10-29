@@ -7,7 +7,7 @@ import java.util.*;
  * This class is used as the main functions of the program. 
  * 
  * @author Glen Su
- * Sept 29 2015
+ * Oct 29 2015
  */
 public class main {
 	

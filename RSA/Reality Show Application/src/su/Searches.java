@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * This class searches through an int, double, or string
+ * This class searches through an int, double, string or object
  * array to find and return back to the user
  * 
  * @author Glen Su
- *	Oct 20 2015
+ *	Oct 29 2015
  */
 public class Searches {
 	/**
@@ -277,4 +277,41 @@ public class Searches {
 		}
 		return -1;
 	}
+	
+	/**
+	 * 
+	 * @param aL
+	 * @param target
+	 * @return
+	 */
+	public static int binarySearch(ArrayList<String> aL, String target){
+		return binarySearch(aL, target, 0, aL.size());
+	}
+	
+	/**
+	 * 
+	 * @param aL
+	 * @param target
+	 * @param begin
+	 * @param end
+	 * @return
+	 */
+	private static int binarySearch(ArrayList<String> aL, String target, int begin, int end) {
+		// TODO Auto-generated method stub
+		if(begin > end){
+			return -1;
+		}
+		int mid = (begin + end)/2;
+		if(aL.get(mid).compareTo(target)==0){
+			return mid;
+		}
+		else if(aL.get(mid).compareTo(target)< 0){
+			return binarySearch(aL, target, mid+1, end);
+		}
+		else{
+			return binarySearch(aL, target, begin,mid-1);
+		}
+	}
+	
+	
 }

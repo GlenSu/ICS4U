@@ -3,11 +3,13 @@
  */
 package Su;
 
+import java.util.Scanner;
+
 /**
- * 
+ * This is 
  * 
  * @author Glen Su
- *
+ * Oct 29 2015
  */
 public class TowersOfHanoi {
 
@@ -16,7 +18,9 @@ public class TowersOfHanoi {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		solve(3,"A", "B", "C");
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please input the stack number.");
+		solve(Integer.parseInt(scan.nextLine()),"A", "B", "C");
 	}
 	public static void solve(int N, String Src, String Dst, String Aux){
 		if (N == 0){

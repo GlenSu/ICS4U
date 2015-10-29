@@ -11,9 +11,10 @@ import java.util.Scanner;
  * city, province, postal code, phone number and birth date.
  * 
  * @author Glen Su
- *	Oct 13 2015
+ *	Oct 29 2015
  */
 
+@SuppressWarnings("rawtypes")
 public class ContestantInformation implements Comparable{
 
 	//initializations for first name, last name, street address (street number and street name), city, province, postal code, phone number and birth date
@@ -32,7 +33,7 @@ public class ContestantInformation implements Comparable{
 	private int mm;
 	private int dd;
 	private String birthDate;
-	private Calendar calender = new GregorianCalendar();
+	private Calendar calender;
 
 	/**
 	 * This method is a constructor for a set of variables
@@ -63,11 +64,24 @@ public class ContestantInformation implements Comparable{
 		this.setmm(mm);
 		this.setdd(dd);
 		this.setBirthDate(yyyy, mm, dd);
-
+		Calendar calender = new GregorianCalendar();
 	}
 
 	public  ContestantInformation (){
-
+		
+		String firstName = "";
+		String lastName = "";
+		String addressNumber = "";
+		String addressName = "";
+		String city = "";
+		String province = "";
+		String postalCode = "";
+		String phoneNumber = "";
+		int yyyy = 0000;
+		int mm = 00;
+		int dd = 00;
+		String birthDate = "";
+		Calendar calender = new GregorianCalendar();
 	}
 	
 	/**
