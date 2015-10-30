@@ -18,13 +18,14 @@ public class main {
 	 * This is the main method of the program
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		// TODO Auto-generated method stub
 		boolean flag1 = true;
-		int compareToValue;
-		String userAnswer;
-		String firstName;
-		String lastName;
+		int compareToValue = 0;
+		int removeElement = 0;
+		String userAnswer = "";
+		String firstName = "";
+		String lastName = "";
 		Scanner scan = new Scanner(System.in);
 		ArrayList<ContestantInformation> contestants = new ArrayList<ContestantInformation>();
 
@@ -33,7 +34,9 @@ public class main {
 		System.out.println("1. Add a new contestant.");
 		System.out.println("2. Print out all the contestant information.");
 		System.out.println("3. Search for a contestant.");
-		System.out.println("4. Exit the program.");
+		System.out.println("4. Delete a contestant.");
+		System.out.println("5. Clear all data.");
+		System.out.println("6. Exit the program.");
 		
 
 		do{
@@ -63,16 +66,32 @@ public class main {
 			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
 				System.out.println("Initiating option.");
 				System.out.println();
-				System.out.println("Enter a first name to search for.");
-				firstName = scan.nextLine();
-				ContestantInformation.wordFormatting(firstName);
-				System.out.println(firstName);
-				System.out.println("Enter a last name to search for.");
-				lastName = scan.nextLine();
-				ContestantInformation.wordFormatting(lastName);
-				System.out.println(lastName);
+				do{
+					try{
+						System.out.println("Enter a first name to search for.");
+						firstName = scan.nextLine();
+						ContestantInformation.wordFormatting(firstName);
+						System.out.println(firstName);
+						flag1 =true;
+					}catch(InvalidInputException e){
+						System.out.println(e.getMessage());
+						flag1 =false;
+					}
+				}while(flag1);
+				do{
+					try{
+						System.out.println("Enter a last name to search for.");
+						lastName = scan.nextLine();
+						ContestantInformation.wordFormatting(lastName);
+						System.out.println(lastName);
+					}catch(InvalidInputException e){
+						System.out.println(e.getMessage());
+						flag1 =false;
+					}
+				}while(flag1);
 				compareToValue = Searches.linearSearches(contestants,firstName,lastName);
 				flag1 = true;
+				
 				System.out.println("Task completed.");
 				
 				if(compareToValue > -1){
@@ -88,13 +107,124 @@ public class main {
 				System.out.println("Is there something else you would like to do?");
 			}
 			else if(userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("4.") || userAnswer.equalsIgnoreCase("4,")){
+				System.out.println("Initiating option.");
+				System.out.println();
+				System.out.println("Would you like to enter an index or search for a person to delete?");
+				System.out.println("Enter a [1] for inputting an index or enter a [2] for searching for a contestant.");
+				do{
+				userAnswer = scan.nextLine();
+				
+					if(userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("1.") || userAnswer.equalsIgnoreCase("1,")){
+						System.out.println("Please enter an index to delete the specified contestant.");
+						do{
+							do{
+								try{
+									userAnswer = scan.nextLine();
+									for (int i = 0; i< userAnswer.length(); i++){
+										if (!Character.isDigit(userAnswer.charAt(i))){
+											throw new InvalidInputException("Please enter only digits.");
+										}
+									}
+									removeElement = Integer.parseInt(userAnswer);
+									flag1 = true;
+								}catch(InvalidInputException e){
+									System.out.println(e.getMessage());
+									flag1 = false;
+								}
+							}while(flag1);
+
+							if(removeElement > 0){
+								contestants.remove(userAnswer);
+								flag1 = false;
+							}
+							else if(removeElement == -1){
+								System.out.println("A contestant information was not deleted.");
+								flag1 = false;
+							}
+							else{
+								System.out.println("Please enter only digits.");
+								flag1 = true;
+							}
+
+						}while(flag1);
+					}
+					else if(userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("2.") || userAnswer.equalsIgnoreCase("2,")){
+						do{
+							try{
+								System.out.println("Enter a first name to search for.");
+								firstName = scan.nextLine();
+								ContestantInformation.wordFormatting(firstName);
+								System.out.println(firstName);
+								flag1 =true;
+							}catch(InvalidInputException e){
+								System.out.println(e.getMessage());
+								flag1 =false;
+							}
+						}while(flag1);
+
+						do{
+							try{
+								System.out.println("Enter a last name to search for.");
+								lastName = scan.nextLine();
+								ContestantInformation.wordFormatting(lastName);
+								System.out.println(lastName);
+								flag1 =true;
+							}catch(InvalidInputException e){
+								System.out.println(e.getMessage());
+								flag1 =false;
+							}
+						}while(flag1);
+
+						compareToValue = Searches.linearSearches(contestants,firstName,lastName);
+						flag1 = false;
+						if (compareToValue > 0){
+							System.out.println("Task completed.");
+							contestants.remove(compareToValue);
+						}
+						else{
+							System.out.println("The specified contestant was not found.");
+						}
+					}
+					else{
+						System.out.println("Please enter a valid input. [1 or 2]");
+						flag1 = true;
+					}
+				}while(flag1);
+				
+				System.out.println("Is there something else you would like to do?");
+			}
+			else if(userAnswer.equalsIgnoreCase("5") || userAnswer.equalsIgnoreCase("5.") || userAnswer.equalsIgnoreCase("5,")){
+				System.out.println("Initiating option.");
+				System.out.println();
+				System.out.println("Are you sure that you want to delete all the contestant information?");
+				System.out.println("Enter a [Y] for yes or an [N] for no.");
+				do{
+					userAnswer = scan.nextLine();
+					if(userAnswer.equalsIgnoreCase("Y")){
+						System.out.println("Task completed.");
+						flag1 = false;
+						contestants.removeAll(contestants);
+					}
+					else if(userAnswer.equalsIgnoreCase("N")){
+						System.out.println("You have cancelled the deletion process.");
+						flag1 = false;
+					}
+					else{
+						System.out.println("Please enter a proper input. [Y or N]");
+						flag1 = true;
+					}
+				}while(flag1);
+				
+				System.out.println("Is there something else you would like to do?");
+			}
+			else if(userAnswer.equalsIgnoreCase("6") || userAnswer.equalsIgnoreCase("6.") || userAnswer.equalsIgnoreCase("6,")){
 				System.out.println("Thank you for choosing this program for organising contestant data.");
 				System.exit(0);
 				flag1 = false;
 			}
 			else{
-				System.out.println("That was not a valid option.");
-				System.out.println("Please input a proper value. [1, 2, or 3]");
+				System.out.println("Please input a proper value. [1, 2, 3, 4, 5, or 6]");
+				flag1 = true;
 			}
 		}while(flag1);
 	}

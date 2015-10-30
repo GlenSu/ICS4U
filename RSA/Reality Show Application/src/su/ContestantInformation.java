@@ -615,18 +615,20 @@ public class ContestantInformation implements Comparable{
 	 * @param word
 	 * @return
 	 */
-	public static String wordFormatting(String word){
+	public static String wordFormatting(String word) throws InvalidInputException{
 		char[] letters = new char[word.length()];
 		String newWord = "";
 		for (int i = 0; i< word.length(); i++){
 			if (Character.isSpaceChar(word.charAt(i))){
-				
+				letters[i] = Character.toUpperCase(word.charAt(i+1));
 			}
 			else
 			{
-			letters[i] = word.charAt(i);
+			   letters[i] = Character.toLowerCase(word.charAt(i+1));
 			}
 		}
 		return newWord;
 	}
+	
+	
 }
