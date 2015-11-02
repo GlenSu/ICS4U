@@ -54,6 +54,7 @@ public class main {
 				flag1 = true;
 				System.out.println("Task completed.");
 				System.out.println("Is there something else you would like to do?");
+				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
 			}
 			else if(userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("2.") || userAnswer.equalsIgnoreCase("2,")){
 				System.out.println("Initiating option.");
@@ -62,6 +63,7 @@ public class main {
 				flag1 = true;
 				System.out.println("Task completed.");
 				System.out.println("Is there something else you would like to do?");
+				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
 			}
 			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
 				System.out.println("Initiating option.");
@@ -70,23 +72,24 @@ public class main {
 					try{
 						System.out.println("Enter a first name to search for.");
 						firstName = scan.nextLine();
-						ContestantInformation.wordFormatting(firstName);
+						Format.wordFormatting(firstName);
 						System.out.println(firstName);
-						flag1 =true;
+						flag1 =false;
 					}catch(InvalidInputException e){
 						System.out.println(e.getMessage());
-						flag1 =false;
+						flag1 =true;
 					}
 				}while(flag1);
 				do{
 					try{
 						System.out.println("Enter a last name to search for.");
 						lastName = scan.nextLine();
-						ContestantInformation.wordFormatting(lastName);
+						Format.wordFormatting(lastName);
 						System.out.println(lastName);
+						flag1 =false;
 					}catch(InvalidInputException e){
 						System.out.println(e.getMessage());
-						flag1 =false;
+						flag1 =true;
 					}
 				}while(flag1);
 				compareToValue = Searches.linearSearches(contestants,firstName,lastName);
@@ -105,6 +108,7 @@ public class main {
 				}
 				
 				System.out.println("Is there something else you would like to do?");
+				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
 			}
 			else if(userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("4.") || userAnswer.equalsIgnoreCase("4,")){
 				System.out.println("Initiating option.");
@@ -153,12 +157,12 @@ public class main {
 							try{
 								System.out.println("Enter a first name to search for.");
 								firstName = scan.nextLine();
-								ContestantInformation.wordFormatting(firstName);
+								Format.wordFormatting(firstName);
 								System.out.println(firstName);
-								flag1 =true;
+								flag1 =false;
 							}catch(InvalidInputException e){
 								System.out.println(e.getMessage());
-								flag1 =false;
+								flag1 =true;
 							}
 						}while(flag1);
 
@@ -166,12 +170,12 @@ public class main {
 							try{
 								System.out.println("Enter a last name to search for.");
 								lastName = scan.nextLine();
-								ContestantInformation.wordFormatting(lastName);
+								Format.wordFormatting(lastName);
 								System.out.println(lastName);
-								flag1 =true;
+								flag1 =false;
 							}catch(InvalidInputException e){
 								System.out.println(e.getMessage());
-								flag1 =false;
+								flag1 =true;
 							}
 						}while(flag1);
 
@@ -192,6 +196,7 @@ public class main {
 				}while(flag1);
 				
 				System.out.println("Is there something else you would like to do?");
+				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
 			}
 			else if(userAnswer.equalsIgnoreCase("5") || userAnswer.equalsIgnoreCase("5.") || userAnswer.equalsIgnoreCase("5,")){
 				System.out.println("Initiating option.");
@@ -216,6 +221,7 @@ public class main {
 				}while(flag1);
 				
 				System.out.println("Is there something else you would like to do?");
+				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
 			}
 			else if(userAnswer.equalsIgnoreCase("6") || userAnswer.equalsIgnoreCase("6.") || userAnswer.equalsIgnoreCase("6,")){
 				System.out.println("Thank you for choosing this program for organising contestant data.");
@@ -223,7 +229,7 @@ public class main {
 				flag1 = false;
 			}
 			else{
-				System.out.println("Please input a proper value. [1, 2, 3, 4, 5, or 6]");
+				System.out.println("Please input a proper value. [1], [2], [3], [4], [5] or [6]");
 				flag1 = true;
 			}
 		}while(flag1);

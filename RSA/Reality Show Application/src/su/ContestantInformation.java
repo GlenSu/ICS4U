@@ -105,7 +105,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		wordFormatting(firstName);
+		Format.wordFormatting(firstName);
 		this.firstName = firstName;
 	}
 	
@@ -130,7 +130,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		wordFormatting(lastName);
+		Format.wordFormatting(lastName);
 		this.lastName = lastName;
 	}
 
@@ -168,7 +168,7 @@ public class ContestantInformation implements Comparable{
 				}
 			}
 		}
-		addressNumber.toUpperCase().charAt(0);
+		addressNumber.toUpperCase();
 		this.addressNumber = addressNumber;
 	}
 
@@ -210,7 +210,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("There are too little spaces in the street name. Try a new input.");
 			}
 		}	
-		wordFormatting(addressName);
+		Format.wordFormatting(addressName);
 		if (count == 1){
 			addressName.toUpperCase().charAt(space);
 			addressName.toLowerCase().substring(space - 1);
@@ -239,7 +239,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("This is not a city name. Please only enter letters.");
 			}
 		}
-
+		Format.wordFormatting(city);
 		this.city = city;
 	}
 
@@ -266,7 +266,7 @@ public class ContestantInformation implements Comparable{
 					throw new InvalidInputException("This is not a province name. Please only enter letters.");
 				}
 			}
-			wordFormatting(province);
+			Format.wordFormatting(province);
 
 			if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
 				this.province = "ON";
@@ -610,25 +610,7 @@ public class ContestantInformation implements Comparable{
 			return -1;
 		}
 	}
-	/**
-	 * This method is used to format string inputs into proper english formatting
-	 * @param word
-	 * @return
-	 */
-	public static String wordFormatting(String word) throws InvalidInputException{
-		char[] letters = new char[word.length()];
-		String newWord = "";
-		for (int i = 0; i< word.length(); i++){
-			if (Character.isSpaceChar(word.charAt(i))){
-				letters[i] = Character.toUpperCase(word.charAt(i+1));
-			}
-			else
-			{
-			   letters[i] = Character.toLowerCase(word.charAt(i+1));
-			}
-		}
-		return newWord;
-	}
+	
 	
 	
 }
