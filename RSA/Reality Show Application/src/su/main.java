@@ -17,8 +17,9 @@ public class main {
 	/**
 	 * This is the main method of the program
 	 * @param args
+	 * @throws InvalidInputException 
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) throws InvalidInputException{
 		// TODO Auto-generated method stub
 		boolean flag1 = true;
 		int compareToValue = 0;
@@ -37,7 +38,6 @@ public class main {
 		System.out.println("4. Delete a contestant.");
 		System.out.println("5. Clear all data.");
 		System.out.println("6. Exit the program.");
-		
 
 		do{
 			userAnswer = scan.nextLine();
@@ -72,7 +72,7 @@ public class main {
 					try{
 						System.out.println("Enter a first name to search for.");
 						firstName = scan.nextLine();
-						Format.wordFormatting(firstName);
+						Format.camelCase(firstName);
 						System.out.println(firstName);
 						flag1 =false;
 					}catch(InvalidInputException e){
@@ -84,7 +84,7 @@ public class main {
 					try{
 						System.out.println("Enter a last name to search for.");
 						lastName = scan.nextLine();
-						Format.wordFormatting(lastName);
+						Format.camelCase(lastName);
 						System.out.println(lastName);
 						flag1 =false;
 					}catch(InvalidInputException e){
@@ -157,7 +157,7 @@ public class main {
 							try{
 								System.out.println("Enter a first name to search for.");
 								firstName = scan.nextLine();
-								Format.wordFormatting(firstName);
+								Format.camelCase(firstName);
 								System.out.println(firstName);
 								flag1 =false;
 							}catch(InvalidInputException e){
@@ -170,7 +170,7 @@ public class main {
 							try{
 								System.out.println("Enter a last name to search for.");
 								lastName = scan.nextLine();
-								Format.wordFormatting(lastName);
+								Format.camelCase(lastName);
 								System.out.println(lastName);
 								flag1 =false;
 							}catch(InvalidInputException e){

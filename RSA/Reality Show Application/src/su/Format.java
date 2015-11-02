@@ -3,6 +3,8 @@
  */
 package su;
 
+import java.util.Arrays;
+
 /**
  * @author 322124942
  *
@@ -51,5 +53,17 @@ public class Format {
 			}
 		}
 		return newWord;
+	}
+	public static String camelCase(String s) throws InvalidInputException{
+		String[] wordList = s.split(" ");
+		for(int i=0;i<wordList.length;i++){
+			
+			wordList[i] = wordList[i].replace(wordList[i].charAt(0), Character.toUpperCase(wordList[i].charAt(0)));
+		}
+		for(int i=0;i<wordList.length;i++){
+			wordList[i] = wordList[i] + " ";
+		}
+			return (wordList[0]);
+		
 	}
 }
