@@ -105,7 +105,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		Format.wordFormatting(firstName);
+		Format.wordFormat(firstName);
 		this.firstName = firstName;
 	}
 	
@@ -130,7 +130,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		Format.wordFormatting(lastName);
+		Format.wordFormat(lastName);
 		this.lastName = lastName;
 	}
 
@@ -210,7 +210,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("There are too little spaces in the street name. Try a new input.");
 			}
 		}	
-		Format.wordFormatting(addressName);
+		Format.wordFormat(addressName);
 		if (count == 1){
 			addressName.toUpperCase().charAt(space);
 			addressName.toLowerCase().substring(space - 1);
@@ -239,7 +239,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("This is not a city name. Please only enter letters.");
 			}
 		}
-		Format.wordFormatting(city);
+		Format.wordFormat(city);
 		this.city = city;
 	}
 
@@ -266,7 +266,7 @@ public class ContestantInformation implements Comparable{
 					throw new InvalidInputException("This is not a province name. Please only enter letters.");
 				}
 			}
-			Format.wordFormatting(province);
+			Format.wordFormat(province);
 
 			if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
 				this.province = "ON";

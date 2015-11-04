@@ -2,12 +2,18 @@
  * 
  */
 package su;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.*;
 /**
  * This class is used as the main functions of the program. 
  * 
  * @author Glen Su
- * Oct 29 2015
+ * Nov 4 2015
  */
 public class main {
 	
@@ -18,15 +24,22 @@ public class main {
 	 * This is the main method of the program
 	 * @param args
 	 * @throws InvalidInputException 
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws InvalidInputException{
+	public static void main(String[] args) throws InvalidInputException, IOException{
 		// TODO Auto-generated method stub
+		BufferedReader fbr = new BufferedReader(new FileReader("contestants.txt"));
+		FileOutputStream fileOutputStream = new FileOutputStream("contestants.txt");
+		PrintStream fps = new PrintStream(fileOutputStream);
+		
 		boolean flag1 = true;
 		int compareToValue = 0;
 		int removeElement = 0;
+		int loadLimit = 0;
 		String userAnswer = "";
 		String firstName = "";
 		String lastName = "";
+		String loadInfo = "";
 		Scanner scan = new Scanner(System.in);
 		ArrayList<ContestantInformation> contestants = new ArrayList<ContestantInformation>();
 
@@ -37,7 +50,9 @@ public class main {
 		System.out.println("3. Search for a contestant.");
 		System.out.println("4. Delete a contestant.");
 		System.out.println("5. Clear all data.");
-		System.out.println("6. Exit the program.");
+		System.out.println("6. Save to a file.");
+		System.out.println("7. Load from a save file.");
+		System.out.println("8. Exit the program.");
 
 		do{
 			userAnswer = scan.nextLine();
@@ -54,16 +69,21 @@ public class main {
 				flag1 = true;
 				System.out.println("Task completed.");
 				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
+				System.out.println("Enter an input just like from the start.");
 			}
 			else if(userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("2.") || userAnswer.equalsIgnoreCase("2,")){
 				System.out.println("Initiating option.");
 				System.out.println();
-				displayLabel(contestants);
-				flag1 = true;
-				System.out.println("Task completed.");
+				if(contestants.size()< 0){
+					displayLabel(contestants);
+					flag1 = true;
+					System.out.println("Task completed.");
+				}
+				else{
+					System.out.println("The information list is currectly empty.");
+				}
 				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
+				System.out.println("Enter an input just like from the start.");
 			}
 			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
 				System.out.println("Initiating option.");
@@ -72,7 +92,7 @@ public class main {
 					try{
 						System.out.println("Enter a first name to search for.");
 						firstName = scan.nextLine();
-						Format.camelCase(firstName);
+						Format.searchFormat(firstName);
 						System.out.println(firstName);
 						flag1 =false;
 					}catch(InvalidInputException e){
@@ -84,7 +104,7 @@ public class main {
 					try{
 						System.out.println("Enter a last name to search for.");
 						lastName = scan.nextLine();
-						Format.camelCase(lastName);
+						Format.searchFormat(lastName);
 						System.out.println(lastName);
 						flag1 =false;
 					}catch(InvalidInputException e){
@@ -108,7 +128,7 @@ public class main {
 				}
 				
 				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
+				System.out.println("Enter an input just like from the start.");
 			}
 			else if(userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("4.") || userAnswer.equalsIgnoreCase("4,")){
 				System.out.println("Initiating option.");
@@ -157,7 +177,7 @@ public class main {
 							try{
 								System.out.println("Enter a first name to search for.");
 								firstName = scan.nextLine();
-								Format.camelCase(firstName);
+								Format.searchFormat(firstName);
 								System.out.println(firstName);
 								flag1 =false;
 							}catch(InvalidInputException e){
@@ -170,7 +190,7 @@ public class main {
 							try{
 								System.out.println("Enter a last name to search for.");
 								lastName = scan.nextLine();
-								Format.camelCase(lastName);
+								Format.searchFormat(lastName);
 								System.out.println(lastName);
 								flag1 =false;
 							}catch(InvalidInputException e){
@@ -196,8 +216,10 @@ public class main {
 				}while(flag1);
 				
 				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
+				System.out.println("Enter an input just like from the start.");
+				flag1 = true;
 			}
+			//Delete all Information
 			else if(userAnswer.equalsIgnoreCase("5") || userAnswer.equalsIgnoreCase("5.") || userAnswer.equalsIgnoreCase("5,")){
 				System.out.println("Initiating option.");
 				System.out.println();
@@ -221,15 +243,80 @@ public class main {
 				}while(flag1);
 				
 				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter [1], [2], [3], [4], [5] or [6] just like from the start.");
+				System.out.println("Enter an input just like from the start.");
+				flag1 = true;
 			}
+			//Save Information
 			else if(userAnswer.equalsIgnoreCase("6") || userAnswer.equalsIgnoreCase("6.") || userAnswer.equalsIgnoreCase("6,")){
+				System.out.println("Saving contestants...");
+				System.out.println();
+				System.out.println("Are you sure that you want to overwrite the overall contestant information?");
+				System.out.println("Enter a [Y] for yes or an [N] for no.");
+				do{
+					userAnswer = scan.nextLine();
+					if(userAnswer.equalsIgnoreCase("Y")){
+						fps.println(contestants.size());
+						for(int i = 0; i<contestants.size();i++){
+							fps.println(contestants.get(i).getFirstName());
+							fps.println(contestants.get(i).getLastName());
+							fps.println(contestants.get(i).getAddressNumber());
+							fps.println(contestants.get(i).getAddressName());
+							fps.println(contestants.get(i).getCity());
+							fps.println(contestants.get(i).getProvince());
+							fps.println(contestants.get(i).getPostalCode());
+							fps.println(contestants.get(i).getPhoneNumber());
+						}
+						fileOutputStream.close();
+						System.out.println("Task completed.");
+						flag1 = false;
+					}
+					else if(userAnswer.equalsIgnoreCase("N")){
+						System.out.println("You have cancelled the deletion process.");
+						flag1 = false;
+					}
+					else{
+						System.out.println("Please enter a proper input. [Y] or [N]");
+						flag1 = true;
+					}
+				}while(flag1);
+				
+				System.out.println("Is there something else you would like to do?");
+				System.out.println("Enter an input just like from the start.");
+			}
+			//Load Information
+			else if(userAnswer.equalsIgnoreCase("7") || userAnswer.equalsIgnoreCase("7.") || userAnswer.equalsIgnoreCase("7,")){
+				System.out.println("Initiating option.");
+				System.out.println();
+				System.out.println("Are you sure that you want to overwrite the current contestant information?");
+				System.out.println("Enter a [Y] for yes or an [N] for no.");
+				do{
+					userAnswer = scan.nextLine();
+					if(userAnswer.equalsIgnoreCase("Y")){
+						loadInfo = fbr.readLine();
+						loadLimit = Integer.parseInt(loadInfo);
+						for(int i = 0; i<loadLimit;i++){
+							
+						}
+						System.out.println("Task completed.");
+						flag1 = false;
+					}
+					else if(userAnswer.equalsIgnoreCase("N")){
+						System.out.println("You have cancelled the deletion process.");
+						flag1 = false;
+					}
+					else{
+						System.out.println("Please enter a proper input. [Y] or [N]");
+						flag1 = true;
+					}
+				}while(flag1);
+			}
+			else if(userAnswer.equalsIgnoreCase("8") || userAnswer.equalsIgnoreCase("8.") || userAnswer.equalsIgnoreCase("8,")){
 				System.out.println("Thank you for choosing this program for organising contestant data.");
 				System.exit(0);
 				flag1 = false;
 			}
 			else{
-				System.out.println("Please input a proper value. [1], [2], [3], [4], [5] or [6]");
+				System.out.println("Please input a proper value. [1], [2], [3], [4], [5], [6], [7] or [8]");
 				flag1 = true;
 			}
 		}while(flag1);
