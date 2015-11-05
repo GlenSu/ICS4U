@@ -192,9 +192,6 @@ public class ContestantInformation implements Comparable{
 		if(addressName.length() <= 0){
 			throw new InvalidInputException("Please enter your street address name.");
 		}
-		if(addressName.length() <= 0){
-			throw new InvalidInputException("Please enter your street address name.");
-		}
 		for(int i = 0; i< addressName.length(); i++){
 			if(!Character.isLetterOrDigit(addressName.charAt(i)) && !Character.isSpaceChar(addressName.charAt(i))){
 				throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
@@ -537,7 +534,6 @@ public class ContestantInformation implements Comparable{
 	 */
 	public void setBirthDate(String yyyy, String mm, String dd) {
 		this.calender.set(Integer.parseInt(yyyy), Integer.parseInt(mm), Integer.parseInt(dd));
-		this.birthDate = calender.toString();
 		
 	}
 	
@@ -549,7 +545,6 @@ public class ContestantInformation implements Comparable{
 	 */
 	public void setBirthDate(int yyyy, int mm, int dd) {
 		this.calender.set(yyyy, mm, dd);
-		this.birthDate = calender.toString();
 		
 	}
 
