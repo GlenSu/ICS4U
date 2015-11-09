@@ -40,19 +40,20 @@ public class Format {
 	public static String searchFormat(String word) throws InvalidInputException{
 		String[] wordList = word.split(" ");
 		for(int i=0;i<wordList.length;i++){
-			if(!Character.isLetter(wordList[i].charAt(0))){
+			
+			if(!Character.isLetter(wordList[i].charAt(i))){
 				throw new InvalidInputException("Please enter a proper name.");
 			}
 			wordList[i] = wordList[i].replace(wordList[i].charAt(0), Character.toUpperCase(wordList[i].charAt(0)));
 		}
 		for(int i=0;i<wordList.length;i++){
-			wordList[i] = wordList[i] + " ";
+			wordList[0] = wordList[i] + " ";
 		}
 			return (wordList[0]);
 	}
 	
-	public static String camelCase(String s) throws InvalidInputException{
-		String[] wordList = s.split(" ");
+	public static String camelCase(String word) throws InvalidInputException{
+		String[] wordList = word.split(" ");
 		for(int i=0;i<wordList.length;i++){
 			
 			wordList[i] = wordList[i].replace(wordList[i].charAt(0), Character.toUpperCase(wordList[i].charAt(0)));

@@ -13,7 +13,7 @@ import java.util.*;
  * This class is used as the main functions of the program. 
  * 
  * @author Glen Su
- * Nov 4 2015
+ * Nov 9 2015
  */
 public class main {
 	
@@ -62,8 +62,7 @@ public class main {
 				addContestant(contestants);
 				flag1 = true;
 				System.out.println("Task completed.");
-				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter an input just like from the start.");
+
 			}
 			//Print array list information
 			else if(userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("2.") || userAnswer.equalsIgnoreCase("2,")){
@@ -77,24 +76,21 @@ public class main {
 				else{
 					System.out.println("The information list is currectly empty.");
 				}
-				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter an input just like from the start.");
+
 			}
 			//Find a contestant
 			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
 				System.out.println("Initiating option.");
 				System.out.println();
 				searchContestant(contestants);
-				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter an input just like from the start.");
+
 			}
 			//Delete a contestant from the array list
 			else if(userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("4.") || userAnswer.equalsIgnoreCase("4,")){
 				System.out.println("Initiating option.");
 				System.out.println();
 				deleteContestant(contestants);
-				System.out.println("Is there something else you would like to do?");
-				System.out.println("Enter an input just like from the start.");
+
 				flag1 = true;
 			}
 			//Delete all contestant information from the array list
@@ -117,6 +113,7 @@ public class main {
 				loadInformation(contestants);
 				
 			}
+			//Exits the program
 			else if(userAnswer.equalsIgnoreCase("8") || userAnswer.equalsIgnoreCase("8.") || userAnswer.equalsIgnoreCase("8,")){
 				System.out.println("Thank you for choosing this program for organising contestant data.");
 				System.exit(0);
@@ -128,6 +125,7 @@ public class main {
 			}
 			System.out.println("Is there something else you would like to do?");
 			System.out.println("Enter an input just like from the start.");
+			Collections.sort(contestants);
 		}while(flag1);
 	}
 
@@ -135,7 +133,12 @@ public class main {
 		Scanner scan = new Scanner(System.in);
 		ContestantInformation contestant1 = new ContestantInformation();
 		
-		int age = 0;
+		String userAnswer;		
+		Random rng = new Random();
+		int skillQuestionAnswer = 0;
+		int skillQuestionNumber1 = (rng.nextInt(10)+1);
+		int skillQuestionNumber2 = (rng.nextInt(10)+1);
+		int skillQuestionNumber3 = (rng.nextInt(10)+1);
 		String firstName;
 		String lastName;
 		String addressNumber;
@@ -151,8 +154,10 @@ public class main {
 		int yyyy=0;
 		int mm=0;
 		int dd=0;
+		int age = 0;
 		boolean flag1 = false;
 		boolean flag2 = false;
+
 		do{
 			flag2 = false;
 			
@@ -311,10 +316,56 @@ public class main {
 			}
 			while(flag1);			
 			
-			contestant1.setBirthDate(yyyy, mm, dd);
+			//contestant1.setBirthDate(yyyy, mm, dd);
+			
+			if(age<18){
+				System.out.println("You are too young to be a contestant.");
+				System.out.println("Would you like to add another contestant instead?");
+			}
+			else if(age>=18){
+				System.out.println("To be added into the list, you must answer correctly a skill testing question.");
+				if(rng.nextInt(3)+1 == 1)
+				{
+					System.out.println("What is: " + skillQuestionNumber1 + " + " + skillQuestionNumber2 + " + " + skillQuestionNumber3);
+					skillQuestionAnswer = skillQuestionNumber1 + skillQuestionNumber2 + skillQuestionNumber3;
+				}
+				else if(rng.nextInt(3)+1 == 2)
+				{
+					System.out.println("What is: " + skillQuestionNumber1 + " - " + skillQuestionNumber2 + " - " + skillQuestionNumber3);
+					skillQuestionAnswer = skillQuestionNumber1 - skillQuestionNumber2 - skillQuestionNumber3;
+				}
+				else if(rng.nextInt(3)+1 == 2)
+				{
+					System.out.println("What is: " + skillQuestionNumber1 + " * " + skillQuestionNumber2 + " * " + skillQuestionNumber3);
+					skillQuestionAnswer = skillQuestionNumber1 * skillQuestionNumber2 * skillQuestionNumber3;
+				}
+				userAnswer = scan.nextLine();
+				do{
+					flag1 = false;
+					for(int i = 0; i<userAnswer.length(); i++){
+						if(!Character.isLetter(userAnswer.charAt(i))){
+							System.out.println("Please answer with a number.");
+							flag1 = true;
+						}
+					}
+				}while(flag1);
 
+				if(Integer.parseInt(userAnswer) == skillQuestionAnswer){
+					System.out.println("Would you like to add another contestant?");
+					contestants.add(contestant1);
+				}
+				else{
+					System.out.println("You have failed to answer the question properly.");
+					System.out.println("Your information will not be added as a new contestant.");
+					System.out.println("Would you like to add another contestant?");
+				}
+			}
+			else{
+				System.out.println("An error has occured when trying to initiate the skill testing question.");
+				System.out.println("Would you like to add another contestant instead?");
+			}
 			do{
-			System.out.println("Would you like to add another contestant?");
+			
 			System.out.println("Please enter [1] for yes or [2] for no.");
 			moreContestants = scan.nextLine();
 			
@@ -333,9 +384,10 @@ public class main {
 				}
 			}
 			while(flag1);	
-		contestants.add(contestant1);
+		
 		}
 		while(flag2);
+		Collections.sort(contestants);
 	}
 	
 	/**
@@ -546,6 +598,7 @@ public class main {
 		Scanner scan = new Scanner(System.in);
 		
 		try {
+			Collections.sort(contestants);
 			FileOutputStream fileOutputStream = new FileOutputStream("contestants.txt");
 			PrintStream fps = new PrintStream(fileOutputStream);
 			System.out.println("Are you sure that you want to overwrite the overall contestant information?");
