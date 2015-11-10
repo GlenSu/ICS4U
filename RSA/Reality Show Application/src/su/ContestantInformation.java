@@ -105,7 +105,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		Format.wordFormat(firstName);
+		firstName = Format.genericFormat(firstName);
 		this.firstName = firstName;
 	}
 	
@@ -130,7 +130,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("Digits do not exist in names. Enter a proper name.");
 			}
 		}
-		Format.wordFormat(lastName);
+		lastName = Format.genericFormat(lastName);
 		this.lastName = lastName;
 	}
 
@@ -198,20 +198,15 @@ public class ContestantInformation implements Comparable{
 			}
 			else if(Character.isSpaceChar(addressName.charAt(i))){
 				count++;
-				space = i;
 			}
 			if(count >= 2){
 				throw new InvalidInputException("There are too many spaces in the street name. Try a new input.");
 			}
-			else if(count >= 2){
+			else if(count <= 0){
 				throw new InvalidInputException("There are too little spaces in the street name. Try a new input.");
 			}
 		}	
-		Format.wordFormat(addressName);
-		if (count == 1){
-			addressName.toUpperCase().charAt(space);
-			addressName.toLowerCase().substring(space - 1);
-		}
+		addressName = Format.genericFormat(addressName);
 		this.addressName = addressName;
 	}
 
@@ -236,7 +231,7 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("This is not a city name. Please only enter letters.");
 			}
 		}
-		Format.wordFormat(city);
+		city = Format.genericFormat(city);
 		this.city = city;
 	}
 
@@ -263,7 +258,7 @@ public class ContestantInformation implements Comparable{
 					throw new InvalidInputException("This is not a province name. Please only enter letters.");
 				}
 			}
-			Format.wordFormat(province);
+			province = Format.genericFormat(province);
 
 			if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
 				this.province = "ON";
@@ -549,6 +544,7 @@ public class ContestantInformation implements Comparable{
 	}
 
 	/**
+	 * 
 	 * @return the firstName, lastName, addressNumber, addressName, city, province, postalCode, phoneNumber, and birthDate
 	 */
 	public String toString(){

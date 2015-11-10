@@ -17,9 +17,6 @@ import java.util.*;
  */
 public class main {
 	
-
-	
-	
 	/**
 	 * This is the main method of the program
 	 * @param args
@@ -46,7 +43,8 @@ public class main {
 		System.out.println("6. Save to a file.");
 		System.out.println("7. Load from a save file.");
 		System.out.println("8. Exit the program.");
-
+		System.out.println("-1. See available options.");
+		
 		do{
 			userAnswer = scan.nextLine();
 			for(int i = 0; i< userAnswer.length(); i++){
@@ -83,7 +81,7 @@ public class main {
 				System.out.println("Initiating option.");
 				System.out.println();
 				searchContestant(contestants);
-
+				flag1 = true;
 			}
 			//Delete a contestant from the array list
 			else if(userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("4.") || userAnswer.equalsIgnoreCase("4,")){
@@ -105,13 +103,14 @@ public class main {
 				System.out.println("Initiating option.");
 				System.out.println();
 				saveInformation(contestants);
+				flag1 = true;
 			}
 			//Load Information
 			else if(userAnswer.equalsIgnoreCase("7") || userAnswer.equalsIgnoreCase("7.") || userAnswer.equalsIgnoreCase("7,")){
 				System.out.println("Initiating option.");
 				System.out.println();
 				loadInformation(contestants);
-				
+				flag1 = true;
 			}
 			//Exits the program
 			else if(userAnswer.equalsIgnoreCase("8") || userAnswer.equalsIgnoreCase("8.") || userAnswer.equalsIgnoreCase("8,")){
@@ -119,12 +118,27 @@ public class main {
 				System.exit(0);
 				flag1 = false;
 			}
-			else{
-				System.out.println("Please input a proper value. [1], [2], [3], [4], [5], [6], [7] or [8]");
+			else if(userAnswer.equalsIgnoreCase("-1") || userAnswer.equalsIgnoreCase("-1.") || userAnswer.equalsIgnoreCase("[-1]")){
+				System.out.println("1. Add a new contestant.");
+				System.out.println("2. Print out all the contestant information.");
+				System.out.println("3. Search for a contestant.");
+				System.out.println("4. Delete a contestant.");
+				System.out.println("5. Clear all data.");
+				System.out.println("6. Save to a file.");
+				System.out.println("7. Load from a save file.");
+				System.out.println("8. Exit the program.");
 				flag1 = true;
 			}
-			System.out.println("Is there something else you would like to do?");
-			System.out.println("Enter an input just like from the start.");
+			else{
+				System.out.println("Please input a proper value. [1], [2], [3], [4], [5], [6], [7], or [8]");
+				System.out.println("If you have forgotten what the options were, input [-1] to veiw them.");
+				flag1 = true;
+			}
+			if(userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("5") || userAnswer.equalsIgnoreCase("6") || userAnswer.equalsIgnoreCase("7") || userAnswer.equalsIgnoreCase("8")){
+				System.out.println("Is there something else you would like to do?");
+				System.out.println("Enter an input just like from the start.");
+				flag1 = true;
+			}
 			Collections.sort(contestants);
 		}while(flag1);
 	}
@@ -427,7 +441,7 @@ public class main {
 			try{
 				System.out.println("Enter a first name to search for.");
 				firstName = scan.nextLine();
-				Format.searchFormat(firstName);
+				firstName = Format.searchFormat(firstName);
 				System.out.println(firstName);
 				flag =false;
 			}catch(InvalidInputException e){
@@ -439,7 +453,7 @@ public class main {
 			try{
 				System.out.println("Enter a last name to search for.");
 				lastName = scan.nextLine();
-				Format.searchFormat(lastName);
+				lastName = Format.searchFormat(lastName);
 				System.out.println(lastName);
 				flag =false;
 			}catch(InvalidInputException e){
@@ -519,7 +533,7 @@ public class main {
 					try{
 						System.out.println("Enter a first name to search for.");
 						firstName = scan.nextLine();
-						Format.searchFormat(firstName);
+						firstName = Format.searchFormat(firstName);
 						System.out.println(firstName);
 						flag =false;
 					}catch(InvalidInputException e){
@@ -532,7 +546,7 @@ public class main {
 					try{
 						System.out.println("Enter a last name to search for.");
 						lastName = scan.nextLine();
-						Format.searchFormat(lastName);
+						lastName = Format.searchFormat(lastName);
 						System.out.println(lastName);
 						flag =false;
 					}catch(InvalidInputException e){

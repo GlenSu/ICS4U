@@ -14,29 +14,42 @@ import java.util.Scanner;
  *	Oct 13 2015
  */
 public class Searches {
-	// linear search for an int array
-	public static int linearSearches(int[] a, int target){	
-		for(int i = 0; i < a.length; i++){	
+	/**
+	 * This search method is used to search for an integer number in order from the beginning to 
+	 * the end within an integer array and returns the index of the array if the integer is found,
+	 * otherwise a negative 1 will be returned  
+	 * @param linearArray
+	 * @param target
+	 * @return
+	 */
+	public static int linearSearches(int[] linearSearch, int target){	
+		for(int i = 0; i < linearSearch.length; i++){	
 			
-			if(a[i] == target){				
+			if(linearSearch[i] == target){				
 				return i;
 			}
 			
 		}
 		return -1;
 	}
-	// binary search for an int array
-	public static int binarySearches(int[] a, int target){
+	/**
+	 * This search method is used to search for an integer number by using the binary search method. 
+	 * It will return the index of the array if the integer is found, otherwise a -1 will be returned. 
+	 * @param binaryArray
+	 * @param target
+	 * @return
+	 */
+	public static int binarySearches(int[] binarySearch, int target){
 		int begIndex = 0;
-		int endIndex = a.length;
+		int endIndex = binarySearch.length;
 		int midIndex = (endIndex + begIndex) /2;
-		for(int i = 0; i < a.length; i++){	
+		for(int i = 0; i < binarySearch.length; i++){	
 			
-			if(a[midIndex] == target){				
+			if(binarySearch[midIndex] == target){				
 				return midIndex;
 			}
 			
-			else if(a[midIndex] < target){
+			else if(binarySearch[midIndex] < target){
 				begIndex = midIndex + 1;
 				midIndex = (endIndex + begIndex) /2;
 				if(endIndex - begIndex == 0){
@@ -44,7 +57,7 @@ public class Searches {
 				}
 			}
 			
-			else if(a[midIndex] > target){
+			else if(binarySearch[midIndex] > target){
 				endIndex = midIndex - 1;
 				midIndex = (endIndex + begIndex) /2;
 				if(endIndex - begIndex == 0){
@@ -54,26 +67,39 @@ public class Searches {
 		}
 		return -1;
 	}
-	// linear search for a double array
-	public static int linearSearches(double[] a, double target){	
-		for(int i = 0; i < a.length; i++){		
-			if(a[i] == target){				
+	/**
+	 * This search method is used to search for an double number in order from the beginning to 
+	 * the end within a double array and returns the index of the array if the double is found,
+	 * otherwise a negative 1 will be returned  
+	 * @param linearArray
+	 * @param target
+	 * @return
+	 */
+	public static int linearSearches(double[] linearSearch, double target){	
+		for(int i = 0; i < linearSearch.length; i++){		
+			if(linearSearch[i] == target){				
 				return i;
 			}
 		}
 		return -1;
 	}
-	// binary search for a double array
-	public static int binarySearches(double[] a, double target){
+	/**
+	 * This search method is used to search for an double number by using the binary search method. 
+	 * It will return the index of the array if the double is found, otherwise a -1 will be returned. 
+	 * @param binarySeach
+	 * @param target
+	 * @return
+	 */
+	public static int binarySearches(double[] binarySeach, double target){
 		int begIndex = 0;
-		int endIndex = a.length;
+		int endIndex = binarySeach.length;
 		int midIndex = (endIndex + begIndex) /2;
-		for(int i = 0; i<a.length; i++){	
-			if(a[midIndex] == target){				
+		for(int i = 0; i<binarySeach.length; i++){	
+			if(binarySeach[midIndex] == target){				
 				return midIndex;
 			}
 			
-			else if(a[midIndex] < target){
+			else if(binarySeach[midIndex] < target){
 				begIndex = midIndex + 1;
 				midIndex = (endIndex + begIndex) /2;
 				
@@ -85,29 +111,42 @@ public class Searches {
 				midIndex = (endIndex + begIndex) /2;
 			}
 			
-			if (midIndex >= a.length){
+			if (midIndex >= binarySeach.length){
 				return -1;
 			}
 		}
 		return -1;
 	}
-	// linear search for a string array
-	public static int linearSearches(String[] a, String target){
-		for(int i = 0; i < a.length; i++){		
-			if(a[i].equals(target)){				
+	/**
+	 * This search method is used to search for an string in order from the beginning to 
+	 * the end within a string array and returns the index of the array if the string is found,
+	 * otherwise a negative 1 will be returned  
+	 * @param linearArray
+	 * @param target
+	 * @return
+	 */
+	public static int linearSearches(String[] linearSearch, String target){
+		for(int i = 0; i < linearSearch.length; i++){		
+			if(linearSearch[i].equals(target)){				
 				return i;
 			}
 		}
 		return -1;
 	}
-	// binary search for a string array
-	public static int binarySearches(String[] a, String target){
+	/**
+	 * This search method is used to search for an string number by using the binary search method. 
+	 * It will return the index of the array if the string is found, otherwise a -1 will be returned. 
+	 * @param binarySearch
+	 * @param target
+	 * @return
+	 */
+	public static int binarySearches(String[] binarySearch, String target){
 		double compareTo = 0;
 		double begIndex = 0;
-		double endIndex = a.length;
+		double endIndex = binarySearch.length;
 		int midIndex = (int) Math.round((endIndex + begIndex) /2);	
-		for(int i = 0; i < a.length; i++){	
-			compareTo = a[midIndex].compareToIgnoreCase(target);
+		for(int i = 0; i < binarySearch.length; i++){	
+			compareTo = binarySearch[midIndex].compareToIgnoreCase(target);
 			if(compareTo == 0){				
 				return midIndex;
 			}
@@ -128,6 +167,10 @@ public class Searches {
 		}
 		return -1;
 	}
+	/**
+	 * This is the main testing method for the search methods by giving test arrays
+	 * @param args
+	 */
 		public static void main(String[] args){
 			Scanner scan = new Scanner(System.in);
 			String[] strings = new String[] {"Black","Blue","Brown","Cyan", "Green", "Grey", "Pink", "Red", "Yellow"};
