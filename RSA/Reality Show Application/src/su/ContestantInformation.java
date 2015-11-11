@@ -11,7 +11,7 @@ import java.util.Scanner;
  * city, province, postal code, phone number and birth date.
  * 
  * @author Glen Su
- *	Oct 29 2015
+ * Nov 10 2015
  */
 
 @SuppressWarnings("rawtypes")

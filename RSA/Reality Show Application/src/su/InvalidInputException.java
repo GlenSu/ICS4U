@@ -8,7 +8,7 @@ package su;
  * entries that the user inputs
  * 
  * @author Glen Su
- *
+ * Oct 24 2015
  */
 public class InvalidInputException extends Exception {
 

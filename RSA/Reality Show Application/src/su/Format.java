@@ -6,16 +6,19 @@ package su;
 import java.util.Arrays;
 
 /**
- * @author 322124942
- *
+ * This class is used to format strings by changing each letter at the beginning of each word
+ * into their capital letter version and change every other letter into their lowercase version.
+ * 
+ * @author Glen Su
+ * Nov 10 2015
  */
 public class Format {
 	/**
 	 * This method is used to format string inputs into proper english formatting
-	 * @param word
-	 * @return
+	 * @param word - the word to be formatted
+	 * @return - the formatted version of the word
 	 */
-	public static String genericFormat(String word) throws InvalidInputException{
+	public static String genericFormat(String word){
 		String[] wordList = word.split(" ");
 		for(int i=0;i<wordList.length;i++){
 			
@@ -28,8 +31,9 @@ public class Format {
 	}
 	/**
 	 * This method is used to format string inputs into proper english formatting
-	 * @param word
-	 * @return
+	 * @param word - the word to be formatted
+	 * @return - the formatted version of the word
+	 * @throws InvalidInputException - If word does not contain all letters
 	 */
 	public static String searchFormat(String word) throws InvalidInputException{
 		String[] wordList = word.split(" ");
@@ -45,12 +49,14 @@ public class Format {
 		}
 			return (wordList[0]);
 	}
+	/*
 	/**
 	 * This was a test method
 	 * @param word
 	 * @return
 	 * @throws InvalidInputException
 	 */
+	/*
 	public static String camelCase(String word) throws InvalidInputException{
 		String[] wordList = word.split(" ");
 		for(int i=0;i<wordList.length;i++){
@@ -63,4 +69,5 @@ public class Format {
 			return (wordList[0]);
 		
 	}
+	*/
 }
