@@ -11,7 +11,7 @@ import java.util.Scanner;
  * array to find and return back to the user
  * 
  * @author Glen Su
- * Nov 10 2015
+ * Nov 11 2015
  */
 public class Searches {
 	/**

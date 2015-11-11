@@ -10,32 +10,34 @@ import java.util.Arrays;
  * into their capital letter version and change every other letter into their lowercase version.
  * 
  * @author Glen Su
- * Nov 10 2015
+ * Nov 11 2015
  */
 public class Format {
 	/**
 	 * This method is used to format string inputs into proper english formatting
-	 * @param word - the word to be formatted
-	 * @return - the formatted version of the word
+	 * @param word - The word to be formatted
+	 * @return - The formatted version of the word
 	 */
 	public static String genericFormat(String word){
+		String newWord = "";
 		String[] wordList = word.split(" ");
 		for(int i=0;i<wordList.length;i++){
 			
 			wordList[i] = wordList[i].replace(wordList[i].charAt(0), Character.toUpperCase(wordList[i].charAt(0)));
 		}
 		for(int i=0;i<wordList.length;i++){
-			wordList[i] = wordList[i] + " ";
+			newWord = newWord + wordList[i] + " ";
 		}
-			return (wordList[0]);
+			return (newWord);
 	}
 	/**
 	 * This method is used to format string inputs into proper english formatting
-	 * @param word - the word to be formatted
-	 * @return - the formatted version of the word
+	 * @param word - The word to be formatted
+	 * @return - The formatted version of the word
 	 * @throws InvalidInputException - If word does not contain all letters
 	 */
 	public static String searchFormat(String word) throws InvalidInputException{
+		String newWord = "";
 		String[] wordList = word.split(" ");
 		for(int i=0;i<wordList.length;i++){
 			
@@ -45,9 +47,9 @@ public class Format {
 			wordList[i] = wordList[i].replace(wordList[i].charAt(0), Character.toUpperCase(wordList[i].charAt(0)));
 		}
 		for(int i=0;i<wordList.length;i++){
-			wordList[0] = wordList[i] + " ";
+			newWord = newWord + wordList[i] + " ";
 		}
-			return (wordList[0]);
+			return (newWord);
 	}
 	/*
 	/**

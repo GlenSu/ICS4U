@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Su;
+package su;
 
 import java.util.Scanner;
 

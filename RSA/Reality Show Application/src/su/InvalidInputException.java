@@ -8,18 +8,19 @@ package su;
  * entries that the user inputs
  * 
  * @author Glen Su
- * Oct 24 2015
+ * Nov 11 2015
  */
 public class InvalidInputException extends Exception {
 
 	/**
-	 * 
+	 * Constructs a new exception case without any message
 	 */
 	public InvalidInputException() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
+	 * Constructs a new exception case with a specified argument
 	 * @param arg0
 	 */
 	public InvalidInputException(String arg0) {
@@ -28,6 +29,7 @@ public class InvalidInputException extends Exception {
 	}
 
 	/**
+	 * Constructs a new exception case with a specified cause
 	 * @param cause
 	 */
 	public InvalidInputException(Throwable cause) {
@@ -36,6 +38,7 @@ public class InvalidInputException extends Exception {
 	}
 
 	/**
+	 * Constructs a new exception case with a specified cause and message
 	 * @param message
 	 * @param cause
 	 */
@@ -45,6 +48,8 @@ public class InvalidInputException extends Exception {
 	}
 
 	/**
+	 *  Constructs a new exception case with a specified cause and message with 
+	 *  enableSuppressionenabled or disabled and writableStackTrace enabled or disabled 
 	 * @param message
 	 * @param cause
 	 * @param enableSuppression

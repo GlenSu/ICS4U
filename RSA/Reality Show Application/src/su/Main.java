@@ -13,19 +13,18 @@ import java.util.*;
  * This class is used as the main functions of the program. 
  * 
  * @author Glen Su
- * Nov 9 2015
+ * Nov 11 2015
  */
-public class main {
+public class Main {
 	
 	/**
-	 * This is the main method of the program
-	 * @param args
-	 * @throws InvalidInputException 
-	 * @throws IOException 
+	 * This is the main method of the program that holds the main menu and calls ofther methods
+	 * to perform specific tasks that are involve to create and manage contestants
+	 * @param args - arguments from the predefined source
+	 * @throws InvalidInputException - If an input is not valid
 	 */
-	public static void main(String[] args) throws InvalidInputException, IOException{
+	public static void main(String[] args) throws InvalidInputException{
 		// TODO Auto-generated method stub
-		
 		boolean flag1 = true;
 		
 		String userAnswer = "";
@@ -66,7 +65,7 @@ public class main {
 			else if(userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("2.") || userAnswer.equalsIgnoreCase("2,")){
 				System.out.println("Initiating option.");
 				System.out.println();
-				if(contestants.size()< 0){
+				if(contestants.size()> 0){
 					displayLabel(contestants);
 					flag1 = true;
 					System.out.println("Task completed.");
@@ -118,6 +117,7 @@ public class main {
 				System.exit(0);
 				flag1 = false;
 			}
+			//Help list
 			else if(userAnswer.equalsIgnoreCase("-1") || userAnswer.equalsIgnoreCase("-1.") || userAnswer.equalsIgnoreCase("[-1]")){
 				System.out.println("1. Add a new contestant.");
 				System.out.println("2. Print out all the contestant information.");
@@ -143,12 +143,17 @@ public class main {
 		}while(flag1);
 	}
 
+	/**
+	 * Adds a new contestant into and arraylist
+	 * @param contestants - the arraylist containing all contestant information
+	 */
 	public static void addContestant(ArrayList<ContestantInformation> contestants){
 		Scanner scan = new Scanner(System.in);
 		ContestantInformation contestant1 = new ContestantInformation();
 		
 		String userAnswer;		
 		Random rng = new Random();
+		int selection = 0;
 		int skillQuestionAnswer = 0;
 		int skillQuestionNumber1 = (rng.nextInt(10)+1);
 		int skillQuestionNumber2 = (rng.nextInt(10)+1);
@@ -165,9 +170,9 @@ public class main {
 		String moreContestants;
 		String output;
 		String dateChecker;
-		int yyyy=0;
-		int mm=0;
-		int dd=0;
+		int birthYear=0;
+		int birthMonth=0;
+		int birthDay=0;
 		int age = 0;
 		boolean flag1 = false;
 		boolean flag2 = false;
@@ -289,9 +294,9 @@ public class main {
 			do{
 				try{
 					dateChecker = scan.nextLine();
-					contestant1.setyyyy(dateChecker);
-					yyyy = Integer.parseInt(dateChecker);
-					age = findAge(yyyy);
+					contestant1.setBirthYear(dateChecker);
+					birthYear = Integer.parseInt(dateChecker);
+					age = findAge(birthYear);
 					flag1 =false;
 				} catch (InvalidInputException e) {
 					System.out.println(e.getMessage());
@@ -305,8 +310,8 @@ public class main {
 			do{
 				try{
 					dateChecker = scan.nextLine();
-					contestant1.setmm(dateChecker);
-					mm = Integer.parseInt(dateChecker);
+					contestant1.setBirthMonth(dateChecker);
+					birthMonth = Integer.parseInt(dateChecker);
 					flag1 =false;
 				} catch (InvalidInputException e){
 					System.out.println(e.getMessage());
@@ -320,8 +325,8 @@ public class main {
 			do{
 				try{
 					dateChecker = scan.nextLine();
-					contestant1.setdd(dateChecker);
-					dd = Integer.parseInt(dateChecker);
+					contestant1.setBirthDay(dateChecker);
+					birthDay = Integer.parseInt(dateChecker);
 					flag1 =false;
 				}catch(InvalidInputException e){
 					System.out.println(e.getMessage());
@@ -330,25 +335,26 @@ public class main {
 			}
 			while(flag1);			
 			
-			//contestant1.setBirthDate(yyyy, mm, dd);
-			
+			contestant1.setBirthDate(birthYear, birthMonth, birthDay);
+			age = findAge(birthYear);
 			if(age<18){
 				System.out.println("You are too young to be a contestant.");
 				System.out.println("Would you like to add another contestant instead?");
 			}
 			else if(age>=18){
 				System.out.println("To be added into the list, you must answer correctly a skill testing question.");
-				if(rng.nextInt(3)+1 == 1)
+				selection = rng.nextInt(3)+1;
+				if(selection == 1)
 				{
 					System.out.println("What is: " + skillQuestionNumber1 + " + " + skillQuestionNumber2 + " + " + skillQuestionNumber3);
 					skillQuestionAnswer = skillQuestionNumber1 + skillQuestionNumber2 + skillQuestionNumber3;
 				}
-				else if(rng.nextInt(3)+1 == 2)
+				else if(selection == 2)
 				{
 					System.out.println("What is: " + skillQuestionNumber1 + " - " + skillQuestionNumber2 + " - " + skillQuestionNumber3);
 					skillQuestionAnswer = skillQuestionNumber1 - skillQuestionNumber2 - skillQuestionNumber3;
 				}
-				else if(rng.nextInt(3)+1 == 2)
+				else if(selection == 3)
 				{
 					System.out.println("What is: " + skillQuestionNumber1 + " * " + skillQuestionNumber2 + " * " + skillQuestionNumber3);
 					skillQuestionAnswer = skillQuestionNumber1 * skillQuestionNumber2 * skillQuestionNumber3;
@@ -357,14 +363,16 @@ public class main {
 				do{
 					flag1 = false;
 					for(int i = 0; i<userAnswer.length(); i++){
-						if(!Character.isLetter(userAnswer.charAt(i))){
+						if(!Character.isDigit(userAnswer.charAt(i)) && !(userAnswer.charAt(i) == '-')){
 							System.out.println("Please answer with a number.");
 							flag1 = true;
+							userAnswer = scan.nextLine();
 						}
 					}
 				}while(flag1);
 
 				if(Integer.parseInt(userAnswer) == skillQuestionAnswer){
+					System.out.println("Correct! Your information is now added to the list.");
 					System.out.println("Would you like to add another contestant?");
 					contestants.add(contestant1);
 				}
@@ -376,7 +384,7 @@ public class main {
 			}
 			else{
 				System.out.println("An error has occured when trying to initiate the skill testing question.");
-				System.out.println("Would you like to add another contestant instead?");
+				System.out.println("Would you like to try to add another contestant instead?");
 			}
 			do{
 			
@@ -401,34 +409,32 @@ public class main {
 		
 		}
 		while(flag2);
-		Collections.sort(contestants);
+		
 	}
 	
 	/**
 	 * This method finds the age of a specified contestant.
-	 * @param yyyy
-	 * @return
+	 * @param birthYear - the year when the contestant was born in
+	 * @return - the age of the contestant
 	 */
-	public static int findAge(int yyyy) {
+	public static int findAge(int birthYear) {
 		// TODO Auto-generated method stub;
-		return yyyy - 2015;
+		return 2015 - birthYear;
 	}
 	
 	/**
 	 * This method prints out all the information of the inputed contestants.
-	 * @param contestants
+	 * @param contestants - the arraylist containing all contestant information
 	 */
 	public static void displayLabel(ArrayList<ContestantInformation> contestants){
 		for(int i =0; i< contestants.size(); i++){
 			Label output = new Label(contestants.get(i));
-			System.out.println(contestants.get(i).toString());
-			System.out.println(output.toString());
-			System.out.println();
+			System.out.println(output.toString() + "\n");
 		}
 	}
 	/**
-	 * 
-	 * @param contestants
+	 * Searches for a specified contestant by the use of their first and last names.
+	 * @param contestants - the arraylist containing all contestant information
 	 */
 	public static void searchContestant(ArrayList<ContestantInformation> contestants){
 		boolean flag = false;
@@ -477,8 +483,9 @@ public class main {
 		}
 	}
 	/**
-	 * 
-	 * @param contestants
+	 * Deletes a contestant from the arraylist by either inputting the index of where the 
+	 * contestant is located inside the arraylist or by search of their first and last names.
+	 * @param contestants - the arraylist containing all contestant information
 	 */
 	public static void deleteContestant(ArrayList<ContestantInformation> contestants){
 		boolean flag = false;
@@ -496,33 +503,30 @@ public class main {
 		
 			if(userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("1.") || userAnswer.equalsIgnoreCase("1,")){
 				System.out.println("Please enter an index to delete the specified contestant.");
+				System.out.println("Enter a [-1] to cancel the process.");
 				do{
 					do{
 						try{
 							userAnswer = scan.nextLine();
-							for (int i = 0; i< userAnswer.length(); i++){
-								if (!Character.isDigit(userAnswer.charAt(i))){
-									throw new InvalidInputException("Please enter only digits.");
-								}
-							}
 							removeElement = Integer.parseInt(userAnswer);
-							flag = true;
-						}catch(InvalidInputException e){
-							System.out.println(e.getMessage());
 							flag = false;
+						}catch(NumberFormatException e){
+							System.out.println("This is not a number. Try again.");
+							flag = true;
 						}
 					}while(flag);
 
-					if(removeElement > 0){
+					if(removeElement >= 0 && removeElement < contestants.size()){
 						contestants.remove(userAnswer);
+						System.out.println("A contestant information was deleted.");
 						flag = false;
 					}
 					else if(removeElement == -1){
-						System.out.println("A contestant information was not deleted.");
+						System.out.println("The deletion process was cancelled.");
 						flag = false;
 					}
 					else{
-						System.out.println("Please enter only digits.");
+						System.out.println("Please enter a valid index.");
 						flag = true;
 					}
 
@@ -573,8 +577,8 @@ public class main {
 		
 	}
 	/**
-	 * 
-	 * @param contestants
+	 * Deletes all information from every contestant that is inside the arraylist
+	 * @param contestants - the arraylist containing all contestant information
 	 */
 	public static void deleteAll(ArrayList<ContestantInformation> contestants){
 		boolean flag = false;
@@ -601,60 +605,60 @@ public class main {
 		}while(flag);
 	}
 	/**
-	 * 
-	 * @param contestants
-	 * @throws IOException
+	 * Used to save contestant information from a ContestantInformation arraylist into a text document.
+	 * @param contestants - the arraylist containing all contestant information
+	 * @throws IOException - If the specified file does not exist
 	 */
 	public static void saveInformation(ArrayList<ContestantInformation> contestants){
-		
+
 		boolean flag = false;
 		String userAnswer = "";
 		Scanner scan = new Scanner(System.in);
-		
+
 		try {
-			Collections.sort(contestants);
-			FileOutputStream fileOutputStream = new FileOutputStream("contestants.txt");
-			PrintStream fps = new PrintStream(fileOutputStream);
-			System.out.println("Are you sure that you want to overwrite the overall contestant information?");
-			System.out.println("Enter a [Y] for yes or an [N] for no.");
-			do{
-				userAnswer = scan.nextLine();
-				if(userAnswer.equalsIgnoreCase("Y")){
-					fps.println(contestants.size());
-					for(int i = 0; i<contestants.size();i++){
-						fps.println(contestants.get(i).getFirstName());
-						fps.println(contestants.get(i).getLastName());
-						fps.println(contestants.get(i).getAddressNumber());
-						fps.println(contestants.get(i).getAddressName());
-						fps.println(contestants.get(i).getCity());
-						fps.println(contestants.get(i).getProvince());
-						fps.println(contestants.get(i).getPostalCode());
-						fps.println(contestants.get(i).getPhoneNumber());
-						fps.println(contestants.get(i).getyyyy());
-						fps.println(contestants.get(i).getmm());
-						fps.println(contestants.get(i).getdd());
-						fps.println(contestants.get(i).getBirthDate());
+			if(contestants.size()>0){
+				Collections.sort(contestants);
+				FileOutputStream fileOutputStream = new FileOutputStream("contestants.txt");
+				PrintStream fps = new PrintStream(fileOutputStream);
+				System.out.println("Are you sure that you want to overwrite the overall contestant information?");
+				System.out.println("Enter a [Y] for yes or an [N] for no.");
+				do{
+					userAnswer = scan.nextLine();
+					if(userAnswer.equalsIgnoreCase("Y")){
+						fps.println(contestants.size());
+						for(int i = 0; i<contestants.size();i++){
+							fps.println(contestants.get(i).getFirstName());
+							fps.println(contestants.get(i).getLastName());
+							fps.println(contestants.get(i).getAddressNumber());
+							fps.println(contestants.get(i).getAddressName());
+							fps.println(contestants.get(i).getCity());
+							fps.println(contestants.get(i).getProvince());
+							fps.println(contestants.get(i).getPostalCode());
+							fps.println(contestants.get(i).getPhoneNumber());
+							fps.println(contestants.get(i).getBirthYear());
+							fps.println(contestants.get(i).getBirthMonth());
+							fps.println(contestants.get(i).getBirthDay());
+						}
+						try {
+							fileOutputStream.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						System.out.println("Task completed.");
+						flag = false;
 					}
-					try {
-						fileOutputStream.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					else if(userAnswer.equalsIgnoreCase("N")){
+						System.out.println("You have cancelled the deletion process.");
+						flag = false;
 					}
-					
-					System.out.println("Task completed.");
-					flag = false;
-				}
-				else if(userAnswer.equalsIgnoreCase("N")){
-					System.out.println("You have cancelled the deletion process.");
-					flag = false;
-				}
-				else{
-					System.out.println("Please enter a proper input. [Y] or [N]");
-					flag = true;
-				}
-			}while(flag);
-			
+					else{
+						System.out.println("Please enter a proper input. [Y] or [N]");
+						flag = true;
+					}
+				}while(flag);
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("There was an error when trying to save the information.");
@@ -662,10 +666,10 @@ public class main {
 		
 	}
 	/**
-	 * 
-	 * @param contestants
-	 * @throws IOException
-	 * @throws InvalidInputException
+	 * Used to load contestant information from a text document into a ContestantInformation arraylist.
+	 * @param contestants - the arraylist containing all contestant information
+	 * @throws IOException - If the text document does not exist
+	 * @throws InvalidInputException - if the input is invalid
 	 */
 	public static void loadInformation(ArrayList<ContestantInformation> contestants) throws InvalidInputException{
 		Scanner scan = new Scanner(System.in);
@@ -682,9 +686,9 @@ public class main {
 		String birthDate = "";
 		String output = "";
 		String dateChecker = "";
-		String yyyy = "";
-		String mm = "";
-		String dd = "";
+		String birthYear = "";
+		String birthMonth = "";
+		String birthDay = "";
 
 		String userAnswer = "";
 		String loadInfo = "";
@@ -697,23 +701,23 @@ public class main {
 			do{
 				userAnswer = scan.nextLine();
 				if(userAnswer.equalsIgnoreCase("Y")){
-
-						loadInfo = fbr.readLine();
 					
-					loadLimit = Integer.parseInt(loadInfo);
+					loadLimit = Integer.parseInt(fbr.readLine());
 					for(int i = 0; i < loadLimit;i++){
-						firstName = fbr.readLine();
-						lastName = fbr.readLine();
+						firstName = fbr.readLine().trim();
+						lastName = fbr.readLine().trim();
 						addressNumber = fbr.readLine();
-						addressName = fbr.readLine();
-						city =fbr.readLine();
-						province = fbr.readLine();
-						postalCode =fbr.readLine();
+						addressName = fbr.readLine().trim();
+						city =fbr.readLine().trim();
+						province = fbr.readLine().trim();
+						postalCode =fbr.readLine().trim();
 						phoneNumber = fbr.readLine();
-						yyyy = fbr.readLine();
-						mm = fbr.readLine();
-						dd = fbr.readLine();
-						ContestantInformation contestant = new ContestantInformation(firstName, lastName, addressNumber, addressName, city, province, postalCode, phoneNumber, yyyy, mm, dd);
+						birthYear = fbr.readLine();
+						birthMonth = fbr.readLine();
+						birthDay = fbr.readLine();
+						ContestantInformation contestant = new ContestantInformation(firstName, lastName, addressNumber, addressName, city, province, postalCode, phoneNumber, birthYear, birthMonth, birthDay);
+						contestants.add(contestant);
+						
 					}
 					System.out.println("Task completed.");
 					flag = false;
@@ -731,9 +735,10 @@ public class main {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("There was an error when opening the file.");
+			System.out.println("The specified file may have been moved or does not exist.");
 		} catch (IOException e){
 			System.out.println("There was an error when trying to read the information.");
-			System.out.println("The file might be empty or corrupted");
+			System.out.println("The file might be empty or corrupted.");
 		}
 	}		
 }

@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
  * information up so that it is ready to be moved or outputted as one unit
  * 
  * @author Glen Su
- * Sept 28 2015
+ * Nov 11 2015
  */
 public class Label {
 
@@ -66,8 +66,27 @@ public class Label {
 	private void formatNumber() {
 		// TODO Auto-generated method stub
 		phoneNumber = ci.getPhoneNumber();
-
-		output = output + phoneNumber;
+		
+		String areaCode = "(";
+		for (int i = 0; i< phoneNumber.length(); i++){
+			if(i < 3){
+				
+				areaCode = areaCode + phoneNumber.charAt(i);
+			}
+			else if(i==3){
+				areaCode = areaCode + ") " + phoneNumber.charAt(i);
+			}
+			else if(i == 4 || i== 5){
+				areaCode = areaCode + phoneNumber.charAt(i);
+			}
+			else if(i == 6){
+				areaCode = areaCode + " - " + phoneNumber.charAt(i);
+			}
+			else if(i>6){
+				areaCode = areaCode + phoneNumber.charAt(i);
+			}
+		}
+		output = output + areaCode;
 	}
 	/**
 	 * This method is used to send the compiled information in the form of a single string

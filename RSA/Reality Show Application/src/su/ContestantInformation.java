@@ -11,7 +11,7 @@ import java.util.Scanner;
  * city, province, postal code, phone number and birth date.
  * 
  * @author Glen Su
- * Nov 10 2015
+ * Nov 11 2015
  */
 
 @SuppressWarnings("rawtypes")
@@ -29,26 +29,26 @@ public class ContestantInformation implements Comparable{
 	private String province;
 	private String postalCode;
 	private String phoneNumber;
-	private int yyyy;
-	private int mm;
-	private int dd;
+	private int birthYear;
+	private int birthMonth;
+	private int birthDay;
 	private String birthDate;
 	private Calendar calender;
 
 	/**
 	 * This method is a constructor for a set of variables
-	 * @param firstName
-	 * @param lastName
-	 * @param addressNumber
-	 * @param addressName
-	 * @param city
-	 * @param province
-	 * @param postalCode
-	 * @param phoneNumber
-	 * @param yyyy
-	 * @param mm
-	 * @param dd
-	 * @throws InvalidInputException
+	 * @param firstName - first name of the contestant
+	 * @param lastName - last name of the contestant
+	 * @param addressNumber - address number of the contestant
+	 * @param addressName - address name of the contestant
+	 * @param city - city name of the contestant
+	 * @param province - province name of the contestant
+	 * @param postalCode - postal code of the contestant
+	 * @param phoneNumber - phone number of the contestant
+	 * @param yyyy - birth year of the contestant
+	 * @param mm - birth month of the contestant
+	 * @param dd - birth day of the contestant
+	 * @throws InvalidInputException - If a variable can not be set
 	 */
 	public ContestantInformation (String firstName,String lastName,String addressNumber, String addressName, String city, String province, String postalCode, String phoneNumber, String yyyy, String mm, String dd) throws InvalidInputException{
 
@@ -60,13 +60,15 @@ public class ContestantInformation implements Comparable{
 		this.setProvince(province);
 		this.setPostalCode(postalCode);
 		this.setPhoneNumber(phoneNumber);
-		this.setyyyy(yyyy);
-		this.setmm(mm);
-		this.setdd(dd);
+		this.setBirthYear(yyyy);
+		this.setBirthMonth(mm);
+		this.setBirthDay(dd);
 		this.setBirthDate(yyyy, mm, dd);
-		Calendar calender = new GregorianCalendar();
 	}
 
+	/**
+	 * This method is a constructor to initialize the variables
+	 */
 	public  ContestantInformation (){
 		
 		String firstName = "";
@@ -85,6 +87,7 @@ public class ContestantInformation implements Comparable{
 	}
 	
 	/**
+	 * This method returns the first name of the contestant
 	 * @return the firstName
 	 */
 	public String getFirstName() {
@@ -93,8 +96,8 @@ public class ContestantInformation implements Comparable{
 	
 	/**
 	 * This method is used to set the first name of the contestant.
-	 * @param firstName the firstName to set
-	 * @throws InvalidInputException 
+	 * @param firstName - the contestant's firstName
+	 * @throws InvalidInputException - If input contains anything but letters
 	 */
 	public void setFirstName(String firstName) throws InvalidInputException {
 		if(firstName.length() <= 0){
@@ -110,6 +113,7 @@ public class ContestantInformation implements Comparable{
 	}
 	
 	/**
+	 * Returns the last name of the contestant.
 	 * @return the lastName
 	 */
 	public String getLastName() {
@@ -118,8 +122,8 @@ public class ContestantInformation implements Comparable{
 	
 	/**
 	 * This method is used to set the last name of the contestant.
-	 * @param lastName the lastName to set
-	 * @throws InvalidInputException 
+	 * @param lastName - the contestant's lastName
+	 * @throws InvalidInputException - If input contains anything but letters
 	 */
 	public void setLastName(String lastName) throws InvalidInputException {
 		if(lastName.length() <= 0){
@@ -135,6 +139,7 @@ public class ContestantInformation implements Comparable{
 	}
 
 	/**
+	 * Returns the address number of the contestant.
 	 * @return the addressNumber
 	 */
 	public String getAddressNumber() {
@@ -144,7 +149,7 @@ public class ContestantInformation implements Comparable{
 	/**
 	 * This is used to set the street number of the contestant.
 	 * @param addressNumber the addressNumber to set
-	 * @throws InvalidInputException 
+	 * @throws InvalidInputException - If input contains anything but letters
 	 */
 	public void setAddressNumber(String addressNumber) throws InvalidInputException {
 		int adlength = addressNumber.length();
@@ -173,6 +178,7 @@ public class ContestantInformation implements Comparable{
 	}
 
 	/**
+	 * Returns the address name of the contestant.
 	 * @return the addressName
 	 */
 	public String getAddressName() {
@@ -182,8 +188,8 @@ public class ContestantInformation implements Comparable{
 	/**
 	 * This method is used to set the street name of the contestant. 
 	 * The user inputs their street name and suffix
-	 * @param addressName the addressName to set
-	 * @throws InvalidInputException 
+	 * @param addressName - the contestant's addressName
+	 * @throws InvalidInputException - If input contains anything but letters or digits
 	 */
 	//may include an option to choose the suffix from a selection box.
 	public void setAddressName(String addressName) throws InvalidInputException {
@@ -196,21 +202,13 @@ public class ContestantInformation implements Comparable{
 			if(!Character.isLetterOrDigit(addressName.charAt(i)) && !Character.isSpaceChar(addressName.charAt(i))){
 				throw new InvalidInputException("This address does not exist in Canada. Please enter a proper address.");
 			}
-			else if(Character.isSpaceChar(addressName.charAt(i))){
-				count++;
-			}
-			if(count >= 2){
-				throw new InvalidInputException("There are too many spaces in the street name. Try a new input.");
-			}
-			else if(count <= 0){
-				throw new InvalidInputException("There are too little spaces in the street name. Try a new input.");
-			}
 		}	
 		addressName = Format.genericFormat(addressName);
 		this.addressName = addressName;
 	}
 
 	/**
+	 * Returns the city of the contestant.
 	 * @return the city
 	 */
 	public String getCity() {
@@ -219,8 +217,8 @@ public class ContestantInformation implements Comparable{
 
 	/**	
 	 * This method is used to set the city name of the contestant.
-	 * @param city the city to set
-	 * @throws InvalidInputException 
+	 * @param city - the contestant's city
+	 * @throws InvalidInputException - If input contains anything but letters
 	 */
 	public void setCity(String city) throws InvalidInputException {
 		if(city.length() <= 0){
@@ -236,6 +234,7 @@ public class ContestantInformation implements Comparable{
 	}
 
 	/**	 
+	 * Returns the province of the contestant.
 	 * @return the province
 	 */
 	public String getProvince() {
@@ -244,8 +243,8 @@ public class ContestantInformation implements Comparable{
 
 	/**
 	 * This method is used to set the province name of the contestant. 
-	 * @param province the province to set
-	 * @throws InvalidInputException 
+	 * @param province - the contestant's province
+	 * @throws InvalidInputException - If input is nvalid
 	 */
 	public String setProvince(String province) throws InvalidInputException {
 		boolean flag = false;
@@ -258,7 +257,7 @@ public class ContestantInformation implements Comparable{
 					throw new InvalidInputException("This is not a province name. Please only enter letters.");
 				}
 			}
-			province = Format.genericFormat(province);
+			//province = Format.genericFormat(province);
 
 			if(province.equalsIgnoreCase("Ontario")|| province.equalsIgnoreCase("Ont.") || province.equalsIgnoreCase("ON")){
 				this.province = "ON";
@@ -327,6 +326,7 @@ public class ContestantInformation implements Comparable{
 	}
 
 	/**
+	 * Returns the postal code of the contestant.
 	 * @return the postalCode
 	 */
 	public String getPostalCode() {
@@ -336,8 +336,8 @@ public class ContestantInformation implements Comparable{
 	/**
 	 * This method is used to set the postal code of the contestant. 
 	 * Input must be in the format of: X#X#X# where 'X' is a letter and # is a number.
-	 * @param postalCode the postalCode to set
-	 * @throws InvalidInputException 
+	 * @param postalCode - the contestant's postalCode
+	 * @throws InvalidInputException - If input is not in order or has too many/few characters
 	 */
 	public void setPostalCode(String postalCode) throws InvalidInputException {
 		if(postalCode.length() <= 0){
@@ -370,7 +370,8 @@ public class ContestantInformation implements Comparable{
 	}
 
 	/**
-	 * @return the phoneNumber
+	 * Returns the phone number of the contestant.
+	 * @return - the contestant's phoneNumber
 	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -380,8 +381,8 @@ public class ContestantInformation implements Comparable{
 	 * This method is used to set the phone number of the user.
 	 * Information must be in the format of: ########## where '#' is a number.
 	 * This will also format the phone number.
-	 * @param phoneNumber the phoneNumber to set
-	 * @throws InvalidInputException 
+	 * @param phoneNumber - phone number of the contestant
+	 * @throws InvalidInputException - If input contains too many/few numbers or non-integer values
 	 */
 
 	public void setPhoneNumber(String phoneNumber) throws InvalidInputException {
@@ -400,42 +401,24 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-		String areaCode = "(";
-		for (int i = 0; i< phoneNumber.length(); i++){
-			if(i < 3){
-				
-				areaCode = areaCode + phoneNumber.charAt(i);
-			}
-			else if(i==3){
-				areaCode = areaCode + ") " + phoneNumber.charAt(i);
-			}
-			else if(i == 4 || i== 5){
-				areaCode = areaCode + phoneNumber.charAt(i);
-			}
-			else if(i == 6){
-				areaCode = areaCode + " - " + phoneNumber.charAt(i);
-			}
-			else if(i>6){
-				areaCode = areaCode + phoneNumber.charAt(i);
-			}
-		}
-		this.phoneNumber = areaCode;
+		this.phoneNumber = phoneNumber;
 	}
 
 
 	/**
-	 * @return the yyyy
+	 * Returns the year the contestant was born in.
+	 * @return - the contestant's year of birth
 	 */
-	public int getyyyy() {
-		return yyyy;
+	public int getBirthYear() {
+		return birthYear;
 	}
 
 	/**
 	 * This method is used to format the year the contestant was born in.
-	 * @param dateChecker the yyyy to set
+	 * @param dateChecker - the year of birth to verify if it is a legitimate year
 	 * @throws InvalidInputException 
 	 */
-	public void setyyyy(String dateChecker) throws InvalidInputException {
+	public void setBirthYear(String dateChecker) throws InvalidInputException {
 		if(dateChecker.length() <= 0){
 			throw new InvalidInputException("Please enter your year of birth.");
 		}
@@ -447,22 +430,23 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-		this.yyyy = Integer.parseInt(dateChecker);
+		this.birthYear = Integer.parseInt(dateChecker);
 	}
 
 	/**
-	 * @return the mm
+	 * Returns the month the contestant was born in.
+	 * @return  - the contestant's birth month
 	 */
-	public int getmm() {
-		return mm;
+	public int getBirthMonth() {
+		return birthMonth;
 	}
 
 	/**
 	 * This method is used to format the month the contestant was born in.
-	 * @param dateChecker the mm to set
+	 * @param dateChecker - the month of birth to verify if it is a legitimate month
 	 * @throws InvalidInputException 
 	 */
-	public void setmm(String dateChecker) throws InvalidInputException {
+	public void setBirthMonth(String dateChecker) throws InvalidInputException {
 		if(dateChecker.length() <= 0){
 			throw new InvalidInputException("Please enter your month of birth.");
 		}
@@ -474,22 +458,23 @@ public class ContestantInformation implements Comparable{
 				throw new InvalidInputException("One of the characters you inputted is not digit. Please re-enter with digits only and try again.");
 			}
 		}
-		this.mm = Integer.parseInt(dateChecker);
+		this.birthMonth = Integer.parseInt(dateChecker);
 	}
 
 	/**
-	 * @return the dd
+	 * Returns the day the contestant was born in.
+	 * @return - the contestant's birth day
 	 */
-	public int getdd() {
-		return dd;
+	public int getBirthDay() {
+		return birthDay;
 	}
 
 	/**
 	 * This method is used to format the day the contestant was born on.
-	 * @param dateChecker the dd to set
+	 * @param dateChecker - the day of birth to verify if it is a legitimate day
 	 * @throws InvalidInputException 
 	 */
-	public void setdd(String dateChecker) throws InvalidInputException {
+	public void setBirthDay(String dateChecker) throws InvalidInputException {
 		if(dateChecker.length() <= 0){
 			throw new InvalidInputException("Please enter your day of birth.");
 		}
@@ -502,20 +487,21 @@ public class ContestantInformation implements Comparable{
 		if(Integer.parseInt(dateChecker) >= 32){
 			throw new InvalidInputException("This day does not exist. Please enter a proper value.");
 		}
-		else if(Integer.parseInt(dateChecker) >= 32 && mm == 01 && mm == 03 && mm == 05 && mm == 07 && mm == 10 && mm == 12){
+		else if(Integer.parseInt(dateChecker) >= 32 && birthMonth == 01 && birthMonth == 03 && birthMonth == 05 && birthMonth == 07 && birthMonth == 10 && birthMonth == 12){
 			throw new InvalidInputException("This day does not exist. Please enter a proper value.");
 		}
-		else if(Integer.parseInt(dateChecker) >= 31 && mm == 04 && mm == 06 && mm == 8 && mm == 9 && mm == 11){
+		else if(Integer.parseInt(dateChecker) >= 31 && birthMonth == 04 && birthMonth == 06 && birthMonth == 8 && birthMonth == 9 && birthMonth == 11){
 			throw new InvalidInputException("This day does not exist. Please enter a proper value.");
 		}
-		else if(Integer.parseInt(dateChecker) >= 29 && mm == 02){
+		else if(Integer.parseInt(dateChecker) >= 29 && birthMonth == 02){
 			throw new InvalidInputException("This day does not exist. Please enter a proper value.");
 		}
-		this.dd = Integer.parseInt(dateChecker);
+		this.birthDay = Integer.parseInt(dateChecker);
 	}
 
 	/**
-	 * @return the birthDate
+	 * Returns a formatted date the contestant was born in.
+	 * @return - formatted birthDate
 	 */
 	public String getBirthDate() {
 		return birthDate;
@@ -523,28 +509,28 @@ public class ContestantInformation implements Comparable{
 
 	/**
 	 * This method is used to format the full date the contestant was born in.
-	 * @param yyyy
-	 * @param mm
-	 * @param dd
+	 * @param birthYear - the year the contestant was born in
+	 * @param birthMonth - the month the contestant was born in
+	 * @param birthDay - the day the contestant was born in
 	 */
-	public void setBirthDate(String yyyy, String mm, String dd) {
-		this.calender.set(Integer.parseInt(yyyy), Integer.parseInt(mm), Integer.parseInt(dd));
+	public void setBirthDate(String birthYear, String birthMonth, String birthDay) {
+		this.birthDate = birthYear + "/" + birthMonth + "/" + birthDay;
 		
 	}
 	
 	/**
 	 * This method is used to format the full date the contestant was born in.
-	 * @param yyyy
-	 * @param mm
-	 * @param dd
+	 * @param birthYear - the year the contestant was born in
+	 * @param birthMonth - the month the contestant was born in
+	 * @param birthDay - the day the contestant was born in
 	 */
-	public void setBirthDate(int yyyy, int mm, int dd) {
-		this.calender.set(yyyy, mm, dd);
+	public void setBirthDate(int birthYear, int birthMonth, int birthDay) {
+		this.birthDate = birthYear + "/" + birthMonth + "/" + birthDay;
 		
 	}
 
 	/**
-	 * 
+	 * This method compiles all the information into a single string
 	 * @return the firstName, lastName, addressNumber, addressName, city, province, postalCode, phoneNumber, and birthDate
 	 */
 	public String toString(){
@@ -554,9 +540,8 @@ public class ContestantInformation implements Comparable{
 	
 	/**
 	 * This method checks the array of ContestantInformation objects to see if a specified object is found
-	 * @param ci
-	 * @param target
-	 * @return [object]
+	 * @param target - the object to search for
+	 * @return - a boolean value
 	 */
 	public boolean equals(ContestantInformation target){
 
@@ -566,12 +551,12 @@ public class ContestantInformation implements Comparable{
 
 		return false;
 	}
-	
 	/**
-	 * This method checks to see if two ContestantInformation objects are the same or if one has a higher letter value than the other
-	 * @param ci
-	 * @param target
-	 * @return [object] or -1
+	 * Compares two ContestantInformation objects by use of the first and last names 
+	 * associated with them respectively and orders the objects based on the Unicode 
+	 * values of each character in the strings of first and last names.
+	 * @param args - the object 
+	 * @return - the index of the arraylist or -1 if not found
 	 */
 	public int compareTo(Object args){
 		ContestantInformation ci = (ContestantInformation)args;
