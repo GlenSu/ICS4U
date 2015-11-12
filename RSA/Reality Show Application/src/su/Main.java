@@ -25,7 +25,7 @@ public class Main {
 	 */
 	public static void main(String[] args) throws InvalidInputException{
 		// TODO Auto-generated method stub
-		boolean flag1 = true;
+		boolean flag = true;
 		
 		String userAnswer = "";
 
@@ -41,7 +41,8 @@ public class Main {
 		System.out.println("5. Clear all data.");
 		System.out.println("6. Save to a file.");
 		System.out.println("7. Load from a save file.");
-		System.out.println("8. Exit the program.");
+		System.out.println("8. Sort the list.");
+		System.out.println("9. Exit the program.");
 		System.out.println("-1. See available options.");
 		
 		do{
@@ -54,20 +55,18 @@ public class Main {
 			}
 			//Create and add a contestant to the array list
 			if(userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("1.") || userAnswer.equalsIgnoreCase("1,")){
-				System.out.println("Initiating option.");
-				System.out.println();
+				System.out.println("Initiating option. \n");
 				addContestant(contestants);
-				flag1 = true;
+				flag = true;
 				System.out.println("Task completed.");
 
 			}
 			//Print array list information
 			else if(userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("2.") || userAnswer.equalsIgnoreCase("2,")){
-				System.out.println("Initiating option.");
-				System.out.println();
+				System.out.println("Initiating option. \n");
 				if(contestants.size()> 0){
 					displayLabel(contestants);
-					flag1 = true;
+					flag = true;
 					System.out.println("Task completed.");
 				}
 				else{
@@ -77,45 +76,61 @@ public class Main {
 			}
 			//Find a contestant
 			else if(userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("3.") || userAnswer.equalsIgnoreCase("3,")){
-				System.out.println("Initiating option.");
-				System.out.println();
+				System.out.println("Initiating option. \n");
 				searchContestant(contestants);
-				flag1 = true;
+				flag = true;
 			}
 			//Delete a contestant from the array list
 			else if(userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("4.") || userAnswer.equalsIgnoreCase("4,")){
 				System.out.println("Initiating option.");
-				System.out.println();
 				deleteContestant(contestants);
 
-				flag1 = true;
+				flag = true;
 			}
 			//Delete all contestant information from the array list
 			else if(userAnswer.equalsIgnoreCase("5") || userAnswer.equalsIgnoreCase("5.") || userAnswer.equalsIgnoreCase("5,")){
-				System.out.println("Initiating option.");
-				System.out.println();
+				System.out.println("Initiating option. \n");
 				deleteAll(contestants);
-				flag1 = true;
+				flag = true;
 			}
 			//Save Information
 			else if(userAnswer.equalsIgnoreCase("6") || userAnswer.equalsIgnoreCase("6.") || userAnswer.equalsIgnoreCase("6,")){
-				System.out.println("Initiating option.");
-				System.out.println();
+				System.out.println("Initiating option. \n");
 				saveInformation(contestants);
-				flag1 = true;
+				flag = true;
 			}
 			//Load Information
 			else if(userAnswer.equalsIgnoreCase("7") || userAnswer.equalsIgnoreCase("7.") || userAnswer.equalsIgnoreCase("7,")){
-				System.out.println("Initiating option.");
-				System.out.println();
+				System.out.println("Initiating option. \n");
 				loadInformation(contestants);
-				flag1 = true;
+				flag = true;
 			}
 			//Exits the program
 			else if(userAnswer.equalsIgnoreCase("8") || userAnswer.equalsIgnoreCase("8.") || userAnswer.equalsIgnoreCase("8,")){
+				System.out.println("Initiating option. \n");
+				System.out.println("Are you sure that you want to overwrite the overall contestant information?");
+				System.out.println("Enter a [Y] for yes or an [N] for no.");
+				do{
+					userAnswer = scan.nextLine();
+					if(userAnswer.equalsIgnoreCase("Y")){
+						Collections.sort(contestants);
+						System.out.println("Task completed.");
+						flag = false;
+					}
+					else if(userAnswer.equalsIgnoreCase("N")){
+						System.out.println("You have cancelled the overriding process.");
+						flag = false;
+					}
+					else{
+						System.out.println("Please enter a proper input. [Y] or [N]");
+						flag = true;
+					}
+				}while(flag);
+			}
+			else if(userAnswer.equalsIgnoreCase("9") || userAnswer.equalsIgnoreCase("9.") || userAnswer.equalsIgnoreCase("9,")){
 				System.out.println("Thank you for choosing this program for organising contestant data.");
 				System.exit(0);
-				flag1 = false;
+				flag = false;
 			}
 			//Help list
 			else if(userAnswer.equalsIgnoreCase("-1") || userAnswer.equalsIgnoreCase("-1.") || userAnswer.equalsIgnoreCase("[-1]")){
@@ -126,21 +141,22 @@ public class Main {
 				System.out.println("5. Clear all data.");
 				System.out.println("6. Save to a file.");
 				System.out.println("7. Load from a save file.");
-				System.out.println("8. Exit the program.");
-				flag1 = true;
+				System.out.println("8. Sort the list.");
+				System.out.println("9. Exit the program.");
+				flag = true;
 			}
 			else{
-				System.out.println("Please input a proper value. [1], [2], [3], [4], [5], [6], [7], or [8]");
+				System.out.println("Please input a proper value. [1], [2], [3], [4], [5], [6], [7], [8], or [9]");
 				System.out.println("If you have forgotten what the options were, input [-1] to veiw them.");
-				flag1 = true;
+				flag = true;
 			}
-			if(userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("5") || userAnswer.equalsIgnoreCase("6") || userAnswer.equalsIgnoreCase("7") || userAnswer.equalsIgnoreCase("8")){
+			if(userAnswer.equalsIgnoreCase("1") || userAnswer.equalsIgnoreCase("2") || userAnswer.equalsIgnoreCase("3") || userAnswer.equalsIgnoreCase("4") || userAnswer.equalsIgnoreCase("5") || userAnswer.equalsIgnoreCase("6") || userAnswer.equalsIgnoreCase("7") || userAnswer.equalsIgnoreCase("8") || userAnswer.equalsIgnoreCase("9")){
 				System.out.println("Is there something else you would like to do?");
 				System.out.println("Enter an input just like from the start.");
-				flag1 = true;
+				flag = true;
 			}
-			Collections.sort(contestants);
-		}while(flag1);
+
+		}while(flag);
 	}
 
 	/**
@@ -166,9 +182,7 @@ public class Main {
 		String province;
 		String postalCode;
 		String phoneNumber;
-		String birthDate;
 		String moreContestants;
-		String output;
 		String dateChecker;
 		int birthYear=0;
 		int birthMonth=0;
